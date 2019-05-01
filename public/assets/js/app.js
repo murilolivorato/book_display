@@ -62594,7 +62594,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var AllPagesMethods = {
   data: {
-    loadingPage: false
+    loadingPage: true
   },
   methods: {
     optionSelected: function optionSelected(idSelected, options) {

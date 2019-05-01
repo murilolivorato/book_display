@@ -3,7 +3,7 @@ import Errors from "../core/Errors";
 const AllPagesMethods = {
 
     data: {
-        loadingPage : false
+        loadingPage : true
     } ,
     methods: {
 
