@@ -2,7 +2,7 @@
 
 ## ABOUT BOOK DISPLAY
 
-It is a Display of Books , bilt with Laravel 5.8 and Vue.js 2.0 . <br /> <br />
+It is a Display of Books , built with Laravel 5.8 and Vue.js 2.0 . <br /> <br />
 To start -
 - Create the Tables with DB Seed 
 - Update with composer update
