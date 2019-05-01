@@ -7,6 +7,7 @@
  */
 
 namespace App\Classes\Books\Destroy;
+use App\Book;
 
 class DestroyCategory
 {

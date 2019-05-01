@@ -72,7 +72,7 @@
                     <!-- CATEGORY-->
                     <div class="form-group">
                         <label for="title">Category</label>
-                        <select-box-many v-model="selectedFormList['category_id']"  :selected="selectedFormList.get('category_id')"  :options="formOptions.get('category')"   :emptyheader="'Category'"   ></select-box-many>
+                        <select-box-many v-model="selectedFormList['category_id']"  :selected="selectedFormList['category_id']"  :options="formOptions.get('category')"   :emptyheader="'Category'" v-if="componentIsLoaded"   ></select-box-many>
                         <span class="error-msg" v-if="errors.has('selectedFormList.category_id')" v-text="errors.get('selectedFormList.category_id')"></span>
                     </div>
 
@@ -136,6 +136,58 @@
 
 
 
+        <!-- @search --->
+        <modal  v-if="modal.get('search')" @close="modal.set('search', false)"  >
+            <template slot="header" ><h4>Search Book</h4></template>
+            <template slot="body" >
+
+                <form method="POST" action="" @submit.prevent="processSearch()">
+                    <div class="modal-body">
+
+                        <!-- CATEGORY-->
+                        <div class="form-group">
+                            <label for="title">Category</label>
+                            <select-box-many v-model="selectSearch['category_id']"  :selected="selectSearch['category_id']"  :options="formOptions.get('category')"   :emptyheader="'Category'"  ></select-box-many>
+                        </div>
+
+
+                        <!-- TITLE-->
+                        <div class="form-group">
+                            <label for="title">Title</label>
+                            <input class="form-control border-input" placeholder="Title" v-model="selectSearch.title"  type="text"  >
+                        </div>
+
+                        <!-- AUTHOR-->
+                        <div class="form-group">
+                            <label for="title">Author</label>
+                            <input class="form-control border-input" placeholder="Author" v-model="selectSearch.author"  type="text"  >
+                        </div>
+
+                        <!-- ISBN-->
+                        <div class="form-group">
+                            <label for="title">Isbn</label>
+                            <input class="form-control border-input" placeholder="Isbn" v-model="selectSearch.isbn"  type="text"  >
+                        </div>
+
+                        <!-- PRICE-->
+                        <div class="form-group">
+                            <label for="title">Price</label>
+                            <masked-input     placehold="Price" mask-type="price" v-model="selectSearch.price" ></masked-input>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" @click="modal.set('search', false)" >Close</button>
+                        <button type="submit" class="btn btn-success">Search</button>
+                    </div>
+                </form>
+            </template>
+        </modal>
+
+
+
+
+
         <div class="row" >
 
             <div class="col-md-7">
@@ -146,7 +198,8 @@
 
 
                 <ul class="list_right_menu_top">
-                    <li><a href="#" type="button" class="delete-item-all-btn btn btn-primary btn pull-right "  @click="deleteManyItems()" >Delete</a></li>
+                    <li><a href="#"  class="btn-primary btn  pull-right"  @click="searchItem()" >Search</a></li>
+                    <li><a href="#"  class="btn-primary btn  pull-right"  @click="deleteManyItems()" >Delete</a></li>
                     <li> <a href="#" class="btn-primary btn pull-right "  @click="createItem()" >Create Book</a></li>
                 </ul>
 
@@ -202,7 +255,7 @@
                                         Author : @{{ item.author }} <br />
                                         ISBN : @{{ item.isbn }} <br />
                                         Price: £ @{{ item.price }} <br />
-                                        Categoria :  @{{ category_list(item.category) }}
+                                        Category :  @{{ category_list(item.category_id) }}
                                     </p>
 
                                 </td>

@@ -16,14 +16,14 @@ class ProcessBookDestroy
     protected $request;
     protected $list_index = [];
 
-    public static function process($request , $books ){
+    public static function process($request){
 
-        return  (new static)->handle($request , $books);
+        return  (new static)->handle($request);
     }
 
-    private function handle($request , $books ){
+    private function handle($request){
         return   $this->setRequest($request)
-                       ->destroy()
+                       ->destroyBook()
                        ->result();
     }
 
@@ -35,20 +35,21 @@ class ProcessBookDestroy
     }
 
     // DESTROY BOOK
-    private function destroy(){
+    private function destroyBook(){
 
-        foreach($this->request as $deleteItem) {
+        foreach($this->request['delete'] as $deleteItem) {
+
             $book = Book::find($deleteItem['id']);
 
             $book = new DestroyBook(
-                new DestroyCategory(
-                    $book,
-                    $deleteItem['index'])
+                        new DestroyCategory(
+                            $book,
+                            $deleteItem['index'])
             );
         }
 
         // push index into index , to make VUE effect to delete
-        $this->list_index = array_push($list_index , $book->destroy());
+        $this->list_index = array_push($this->list_index , $book->destroy());
 
         return $this;
     }

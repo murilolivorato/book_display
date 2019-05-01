@@ -66,7 +66,7 @@ if (document.querySelector('#books-pg')) {
                        destroyItem:'/books/destroy'} ,
             formOptions: new FormOptions({category:'' }) ,
             displayItems: [{  id:'' , category_id:'' , isbn:'', author:'', price:'', title:'' }] ,
-            selectSearch:   new PageFilter({category:'' , isbn :'' , author:'' })  ,
+            selectSearch:   new PageFilter({category_id:[] , isbn :'' , author:'' , price:'', title:'' })  ,
             selectedFormList:new FormDisplay({id:'' , category_id:[] , isbn:'', author:'', price:'', title:''})
 
         },

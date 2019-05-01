@@ -4,11 +4,12 @@
 import ClickOutSideEvent from '../mixins/ClickOutSideEvent';
 const SelectBoxMany = {
     template: `<section class="dropdow_box"  v-click-outside="outside" @click="inside" >
+                                            
                             <div class="wrapper-demo">
                                     <div id="dd" :class="styleWapper"  >
-                                     
+                                                {{ selectedData }}
                                             <a href="#" id="header_drop"    @click.stop.prevent="clickHeader()" >
-                                                          {{ headerMessage }}
+                                                          {{ headerMessage }} 
                                              </a>
                                   
 
@@ -16,7 +17,7 @@ const SelectBoxMany = {
                                             <ul class="dropdown_menu">
                                                         <li><a href="#" >Select an Option </a></li>
                                                         <li class="row"  v-for="option in listValues" >
-                                                                <label class="checkbox"><input type="checkbox"  :value="option" v-model="selectedData"><span>{{ option.title }}</span></label>
+                                                                <label class="checkbox"><input type="checkbox"  :value="option.id" v-model="selectedData"><span>{{ option.title }}</span></label>
                                                          </li>
                                                   </ul>
                                   
@@ -62,6 +63,18 @@ const SelectBoxMany = {
 
             return;
         } ,
+        getOptionTitle(valuaSelected){
+
+
+            for (let option in this.options) {
+                if (this.options[option]['id'] == valuaSelected) {
+
+                    return this.options[option]['title'];
+                }
+
+            }
+
+        } ,
         formatHeaderMessage(val){
             if(val.length == 0){
                 this.formatEmptyHeaderMessage();
@@ -69,7 +82,7 @@ const SelectBoxMany = {
 
 
             if(val.length == 1){
-                      this.headerMessage =  val[0]['title'];
+                      this.headerMessage =  this.getOptionTitle(val);
                      return;
                 }
 
@@ -96,20 +109,9 @@ const SelectBoxMany = {
             this.sendValue();
         },
         sendValue(){
-
-            this.$emit('input', this.getAllIds());
-
-
+            this.$emit('input', this.selectedData);
         },
-        getAllIds(data){
-            let list = [];
-            for(let prop in this.selectedData)
-            {
-                list.push(this.selectedData[prop]['id']);
-            }
-            return list;
 
-        } ,
         get(value){
 
             return this[value];
@@ -135,7 +137,9 @@ const SelectBoxMany = {
 
     },
     created() {
-        this.formatEmptyHeaderMessage();
+        // CLONE DATA
+        this.selectedData = Object.assign([] , this.selected);
+      //  this.formatEmptyHeaderMessage();
     } ,
     mixins: [ClickOutSideEvent]
 };

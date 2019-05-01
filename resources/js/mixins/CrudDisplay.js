@@ -20,13 +20,14 @@ const CrudDisplay = {
 
     data: {
         message: 'working ...' ,
-        modal:new CrudModal({create:false , edit:false , delete:false , view:false , filter:false}),
+        modal:new CrudModal({create:false , edit:false , delete:false , view:false , search:false}),
         pagination: new Pagination({total: 0, per_page: 10, from: 1,to: 0, current_page: 1 , last_page: 1, offset: 3}),
         paginationNumbers:[] ,
         selectedItems:[] ,
         submitSelectedItems:[] ,
         deletable:true,
         isLoaded:{'forms': false , 'page': false} ,
+        componentIsLoaded:false
 
 
     } ,
@@ -97,6 +98,7 @@ const CrudDisplay = {
             this.selectedFormList.setFillItem(item , index );
             // SET THE INDEX
             this.selectedFormList.index = index;
+            this.componentIsLoaded = true;
             this.modal.set('edit', true);
         } ,
 
@@ -119,6 +121,26 @@ const CrudDisplay = {
 
         } ,
 
+        // SEARCH ITEM
+        searchItem(){
+            //this.selectSearch.reset();
+            this.modal.set('search', true);
+        } ,
+
+        processSearch(){
+            // CLOSE THE SEARCH BOX
+            this.modal.set('search', false);
+
+            // START LOADING PAGE
+            this.loadingPage = true;
+
+            console.log(this.pageInfo.loadDisplayUrl + this.selectSearch.setUrlFilerString());
+
+            // MAKE A NEW SEARCH
+            new LoadForm(this.pageInfo.loadDisplayUrl + this.selectSearch.setUrlFilerString() , 'pageLoaded');
+
+        } ,
+
         // VIEW LINK
         viewLink(id , namePage = null){
             let pg = "view";
@@ -133,41 +155,22 @@ const CrudDisplay = {
         // DELETE
         deleteItem(item , index = this.displayItems.indexOf(item)){
            this.submitSelectedItems = [{index: index, id:item.id}];
-            // VERIFY IF CAN DELETE
-           this.setDeletable(item);
 
            this.modal.set('delete', true);
         } ,
 
-        setDeletable(data){
-            if ('verify_before_delete' in this.pageInfo){
-                // CAN NOT DELETE
-                if(data[this.pageInfo.verify_before_delete] > 0 ){
-                    this.deletable = false;
-                    return;
-                }
-            }
-
-            // CAN  DELETE
-            this.deletable = true;
-
-
-
-
-        } ,
 
         // DELETE MANY
         deleteManyItems(){
 
             let deleteItemsInfo = [];
+
             for (var prop in this.selectedItems) {
                 let  selectedIndex = this.selectedItems[prop];
 
 
                 deleteItemsInfo.unshift({ index: selectedIndex, id:this.displayItems[selectedIndex]['id']});
 
-                // VERIFY IF CAN DELETE
-                this.setDeletable(this.displayItems[selectedIndex]);
             }
 
             this.submitSelectedItems = deleteItemsInfo;
@@ -176,9 +179,8 @@ const CrudDisplay = {
         } ,
 
         // DESTROY
-        destroyItem(item){
-           // return  new DestroyItem( this.pageInfo.pageUrl + '/delete' , item );
-
+        destroyItem(itemsToDelete){
+            return  new StoreItem(  this.pageInfo.destroyItem , {'delete' : itemsToDelete } , 'deletedItem' , 'selectedFormList' );
         } ,
         setNewValuesDisplay(value){
 
@@ -304,7 +306,7 @@ const CrudDisplay = {
         });
 
         EventBus.$on('createdItem' ,  (item) => {
-                console.log(item);
+
             // hide modal
             this.modal.set('create', false);
 
@@ -363,10 +365,10 @@ const CrudDisplay = {
         });
 
 
-        EventBus.$on('deleteItem' , (data) => {
+        EventBus.$on('deletedItem' , (data) => {
 
             // if has error
-            if(data.sucess == false){
+            if(data.success == false){
                 // hide modal
                 this.modal.set('delete', false);
                 new FlashMessage('error', 'Erro');

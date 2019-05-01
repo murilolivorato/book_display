@@ -38,5 +38,8 @@ Route::post('books/update/{id}' , [
     'uses'        => 'Books@update' , 'as'          => 'books.update'
 ]);
 
+Route::post('books/destroy' , [
+    'uses'        => 'Books@destroy' , 'as'          => 'books.destroy'
+]);
 
 

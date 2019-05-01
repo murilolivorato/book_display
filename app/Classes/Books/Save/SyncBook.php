@@ -39,7 +39,7 @@ class SyncBook
                    'author'       => $this->request['author'] ,
                    'price'        => $this->request['price'] ,
                    'title'        => $this->request['title'] ,
-                   'category'     => BookCategory::select(['id', 'title'])->whereIn('id' , $this->request['category_id'])->orderBy('id', 'ASC')->get() ,
+                   'category_id'  => $this->request['category_id'] ,
                ]
         ];
     }

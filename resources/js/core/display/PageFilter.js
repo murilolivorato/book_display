@@ -5,48 +5,49 @@ import EventBus from '../../event-bus';
 
 class PageFilter{
     constructor(data){
-        this.filters =data;
+
         this.originalData = data;
 
+        for(let field in data){
 
+            this[field] = data[field];
+        }
 
     }
+
+    reset(){
+        for(let field in this.originalData){
+
+            this[field] = this.originalData[field];
+        }
+    }
+
 
     get(field){
-        if(this.filters[field]){
-
-            return this.filters[field];
-        }
-
-    }
-    getFilterTranslated(field){
-        if(this.allFilterTranslatedNames[field]){
-
-            return this.allFilterTranslatedNames[field];
-        }
+        return this[value];
 
     }
 
     set(field , value){
-        this.filters[field] = value;
+        this[data] = value;
     }
 
-    getKeys(){
-        return Object.keys(this.filters);
-    }
 
-    setUrlFilerString(pagination_page = null){
 
-        let all_filtes = this.getKeys();
+    setUrlFilerString(){
+
+        // GET ALL KEYS
+        let all_filtes = Object.keys(this.data());
 
         // PUT ALL FILTERS INTO ARRAY
-        let valueFilertPage = this.pushFilters(all_filtes , this.filters );
+        let valueFilertPage = this.pushFilters(all_filtes , this.data() );
 
         // CREATE ARRAY FILTERS
         let pgFilpers =  this.joinValuePageFilter(valueFilertPage.filters);
 
+        return '?' + pgFilpers;
 
-        let paginateProp = pagination_page ? 'page='  + pagination_page : '';
+       /* let paginateProp = pagination_page ? 'page='  + pagination_page : '';
 
 
         // CREATE THE FILTER URL FROM THIS ARRAY
@@ -57,15 +58,9 @@ class PageFilter{
         return {
             filters: filters ,
             all_results : all_results
-        }
+        }*/
     }
-    resetAll(){
 
-        for (let filter in this.filters){
-            this.filters[filter] = this.originalData[filter];
-        }
-
-    }
 
     reverseArray(value) {
 
@@ -79,20 +74,7 @@ class PageFilter{
 
     
 
-    resetBox(){
 
-        this.filters['plan_feature'] = [];
-        this.filters['additional_feature'] = [];
-        this.filters['recreation_feature'] = [];
-        this.filters['security_feature'] = [];
-        this.filters['special_feature'] = [];
-        this.filters['payment_feature'] = [];
-        this.filters['park']  =  [];
-        this.filters['suite'] =  [];
-        this.filters['bath']  =  [];
-
-
-    }
     // add category=  and - between values
     joinValuesArrayFilters(value , nameFilter){
 
@@ -152,6 +134,13 @@ class PageFilter{
 
 
         return {'filters': filters  };
+    }
+
+    data(){
+        let data = Object.assign({} , this);
+        delete data.originalData;
+
+        return data;
     }
 
 }

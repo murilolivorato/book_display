@@ -7,6 +7,9 @@
  */
 
 namespace App\Classes\Books;
+use App\Classes\Books\BookCollection;
+use App\Classes\Helpers\SetQueries;
+
 use App\Book;
 
 class LoadBookDisplay
@@ -42,7 +45,7 @@ class LoadBookDisplay
         $isbn                    = $this->request->input('isbn');
         $title                   = $this->request->input('title');
         $author                  = $this->request->input('author');
-        $category_id             = $this->request->input('category');
+        $category_id             = $this->request->input('category_id');
         $page                    = $this->request->input('page');
 
 
@@ -51,23 +54,23 @@ class LoadBookDisplay
 
             // WHEN HAS ISBN
             ->when($isbn, function ($query) use ($isbn) {
-                return $query->where('isbn', $isbn );
+                return $query->where('isbn', 'like' , '%' .$isbn .'%' );
             })
 
             // WHEN HAS TITLE
             ->when($title, function ($query) use ($title) {
-                return $query->where('title', $title );
+                return $query->where('title', 'like' , '%' . $title .'%'  );
             })
 
             // WHEN HAS AUTHOR
             ->when($author, function ($query) use ($author) {
-                return $query->where('author', $author );
+                return $query->where('author', 'like' , '%' .  $author  .'%' );
             })
 
             // WHEN HAS CATEGORY
             ->when($category_id, function ($query) use ($category_id) {
                 $query->WhereHas('Category' , function($query)  use ($category_id) {
-                    return $query->where('id' , $category_id );
+                    return $query->whereIn('id' , SetQueries::convertArray($category_id) );
 
                 });
             })
@@ -89,7 +92,7 @@ class LoadBookDisplay
                     'from'          => $result->firstItem(),
                     'to'            => $result->lastItem()
                 ],
-                'data'             => $result->items()
+                'data'             => BookCollection::load($result->items())
             ];
 
 

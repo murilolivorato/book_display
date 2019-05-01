@@ -60887,9 +60887,11 @@ if (document.querySelector('#books-pg')) {
         title: ''
       }],
       selectSearch: new _core_display_PageFilter__WEBPACK_IMPORTED_MODULE_4__["default"]({
-        category: '',
+        category_id: [],
         isbn: '',
-        author: ''
+        author: '',
+        price: '',
+        title: ''
       }),
       selectedFormList: new _core_FormDisplay__WEBPACK_IMPORTED_MODULE_5__["default"]({
         id: '',
@@ -61368,7 +61370,7 @@ __webpack_require__.r(__webpack_exports__);
  */
 
 var SelectBoxMany = {
-  template: "<section class=\"dropdow_box\"  v-click-outside=\"outside\" @click=\"inside\" >\n                            <div class=\"wrapper-demo\">\n                                    <div id=\"dd\" :class=\"styleWapper\"  >\n                                     \n                                            <a href=\"#\" id=\"header_drop\"    @click.stop.prevent=\"clickHeader()\" >\n                                                          {{ headerMessage }}\n                                             </a>\n                                  \n\n                                \n                                            <ul class=\"dropdown_menu\">\n                                                        <li><a href=\"#\" >Select an Option </a></li>\n                                                        <li class=\"row\"  v-for=\"option in listValues\" >\n                                                                <label class=\"checkbox\"><input type=\"checkbox\"  :value=\"option\" v-model=\"selectedData\"><span>{{ option.title }}</span></label>\n                                                         </li>\n                                                  </ul>\n                                  \n                            </div>\n\t\t\t\t        \u200B</div>\n                </section>\n\n\n\t\t\t",
+  template: "<section class=\"dropdow_box\"  v-click-outside=\"outside\" @click=\"inside\" >\n                                            \n                            <div class=\"wrapper-demo\">\n                                    <div id=\"dd\" :class=\"styleWapper\"  >\n                                                {{ selectedData }}\n                                            <a href=\"#\" id=\"header_drop\"    @click.stop.prevent=\"clickHeader()\" >\n                                                          {{ headerMessage }} \n                                             </a>\n                                  \n\n                                \n                                            <ul class=\"dropdown_menu\">\n                                                        <li><a href=\"#\" >Select an Option </a></li>\n                                                        <li class=\"row\"  v-for=\"option in listValues\" >\n                                                                <label class=\"checkbox\"><input type=\"checkbox\"  :value=\"option.id\" v-model=\"selectedData\"><span>{{ option.title }}</span></label>\n                                                         </li>\n                                                  </ul>\n                                  \n                            </div>\n\t\t\t\t        \u200B</div>\n                </section>\n\n\n\t\t\t",
   props: {
     options: {
       type: Array
@@ -61407,13 +61409,20 @@ var SelectBoxMany = {
       this.headerMessage = this.emptyheader;
       return;
     },
+    getOptionTitle: function getOptionTitle(valuaSelected) {
+      for (var option in this.options) {
+        if (this.options[option]['id'] == valuaSelected) {
+          return this.options[option]['title'];
+        }
+      }
+    },
     formatHeaderMessage: function formatHeaderMessage(val) {
       if (val.length == 0) {
         this.formatEmptyHeaderMessage();
       }
 
       if (val.length == 1) {
-        this.headerMessage = val[0]['title'];
+        this.headerMessage = this.getOptionTitle(val);
         return;
       }
 
@@ -61436,16 +61445,7 @@ var SelectBoxMany = {
       this.sendValue();
     },
     sendValue: function sendValue() {
-      this.$emit('input', this.getAllIds());
-    },
-    getAllIds: function getAllIds(data) {
-      var list = [];
-
-      for (var prop in this.selectedData) {
-        list.push(this.selectedData[prop]['id']);
-      }
-
-      return list;
+      this.$emit('input', this.selectedData);
     },
     get: function get(value) {
       return this[value];
@@ -61465,7 +61465,8 @@ var SelectBoxMany = {
     }
   },
   created: function created() {
-    this.formatEmptyHeaderMessage();
+    // CLONE DATA
+    this.selectedData = Object.assign([], this.selected); //  this.formatEmptyHeaderMessage();
   },
   mixins: [_mixins_ClickOutSideEvent__WEBPACK_IMPORTED_MODULE_0__["default"]]
 };
@@ -62169,58 +62170,49 @@ function () {
   function PageFilter(data) {
     _classCallCheck(this, PageFilter);
 
-    this.filters = data;
     this.originalData = data;
+
+    for (var field in data) {
+      this[field] = data[field];
+    }
   }
 
   _createClass(PageFilter, [{
-    key: "get",
-    value: function get(field) {
-      if (this.filters[field]) {
-        return this.filters[field];
+    key: "reset",
+    value: function reset() {
+      for (var field in this.originalData) {
+        this[field] = this.originalData[field];
       }
     }
   }, {
-    key: "getFilterTranslated",
-    value: function getFilterTranslated(field) {
-      if (this.allFilterTranslatedNames[field]) {
-        return this.allFilterTranslatedNames[field];
-      }
+    key: "get",
+    value: function get(field) {
+      return this[value];
     }
   }, {
     key: "set",
     value: function set(field, value) {
-      this.filters[field] = value;
-    }
-  }, {
-    key: "getKeys",
-    value: function getKeys() {
-      return Object.keys(this.filters);
+      this[data] = value;
     }
   }, {
     key: "setUrlFilerString",
     value: function setUrlFilerString() {
-      var pagination_page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-      var all_filtes = this.getKeys(); // PUT ALL FILTERS INTO ARRAY
+      // GET ALL KEYS
+      var all_filtes = Object.keys(this.data()); // PUT ALL FILTERS INTO ARRAY
 
-      var valueFilertPage = this.pushFilters(all_filtes, this.filters); // CREATE ARRAY FILTERS
+      var valueFilertPage = this.pushFilters(all_filtes, this.data()); // CREATE ARRAY FILTERS
 
       var pgFilpers = this.joinValuePageFilter(valueFilertPage.filters);
-      var paginateProp = pagination_page ? 'page=' + pagination_page : ''; // CREATE THE FILTER URL FROM THIS ARRAY
-
-      var filters = '?' + pgFilpers + paginateProp;
-      var all_results = '?' + pgFilpers;
-      return {
-        filters: filters,
-        all_results: all_results
-      };
-    }
-  }, {
-    key: "resetAll",
-    value: function resetAll() {
-      for (var filter in this.filters) {
-        this.filters[filter] = this.originalData[filter];
-      }
+      return '?' + pgFilpers;
+      /* let paginateProp = pagination_page ? 'page='  + pagination_page : '';
+         // CREATE THE FILTER URL FROM THIS ARRAY
+       let filters             =  '?' +  pgFilpers + paginateProp;
+       let all_results         =  '?' + pgFilpers;
+       
+        return {
+           filters: filters ,
+           all_results : all_results
+       }*/
     }
   }, {
     key: "reverseArray",
@@ -62232,19 +62224,6 @@ function () {
       }
 
       return newValue;
-    }
-  }, {
-    key: "resetBox",
-    value: function resetBox() {
-      this.filters['plan_feature'] = [];
-      this.filters['additional_feature'] = [];
-      this.filters['recreation_feature'] = [];
-      this.filters['security_feature'] = [];
-      this.filters['special_feature'] = [];
-      this.filters['payment_feature'] = [];
-      this.filters['park'] = [];
-      this.filters['suite'] = [];
-      this.filters['bath'] = [];
     } // add category=  and - between values
 
   }, {
@@ -62299,6 +62278,13 @@ function () {
       return {
         'filters': filters
       };
+    }
+  }, {
+    key: "data",
+    value: function data() {
+      var data = Object.assign({}, this);
+      delete data.originalData;
+      return data;
     }
   }]);
 
@@ -62642,8 +62628,7 @@ var BookListPage = {
       var list = '';
 
       for (var index in data) {
-        // let category_name =  this.optionSelected(data[index]['id'] , this.formOptions.category);
-        var category_name = data[index]['title']; // FIRST RECORD
+        var category_name = this.optionSelected(data[index], this.formOptions.category); // FIRST RECORD
 
         if (list == '') {
           list = category_name;
@@ -62751,7 +62736,7 @@ var CrudDisplay = {
       edit: false,
       "delete": false,
       view: false,
-      filter: false
+      search: false
     }),
     pagination: new _core_Pagination__WEBPACK_IMPORTED_MODULE_6__["default"]({
       total: 0,
@@ -62769,7 +62754,8 @@ var CrudDisplay = {
     isLoaded: {
       'forms': false,
       'page': false
-    }
+    },
+    componentIsLoaded: false
   },
   mounted: function mounted() {
     var _this = this;
@@ -62827,6 +62813,7 @@ var CrudDisplay = {
       this.selectedFormList.setFillItem(item, index); // SET THE INDEX
 
       this.selectedFormList.index = index;
+      this.componentIsLoaded = true;
       this.modal.set('edit', true);
     },
     // UPDATE
@@ -62845,6 +62832,20 @@ var CrudDisplay = {
 
       return this.pageInfo.pageUrl + '/' + id + '/' + pg;
     },
+    // SEARCH ITEM
+    searchItem: function searchItem() {
+      //this.selectSearch.reset();
+      this.modal.set('search', true);
+    },
+    processSearch: function processSearch() {
+      // CLOSE THE SEARCH BOX
+      this.modal.set('search', false); // START LOADING PAGE
+
+      this.loadingPage = true;
+      console.log(this.pageInfo.loadDisplayUrl + this.selectSearch.setUrlFilerString()); // MAKE A NEW SEARCH
+
+      new _core_form_LoadForm__WEBPACK_IMPORTED_MODULE_5__["default"](this.pageInfo.loadDisplayUrl + this.selectSearch.setUrlFilerString(), 'pageLoaded');
+    },
     // VIEW LINK
     viewLink: function viewLink(id) {
       var namePage = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
@@ -62862,22 +62863,8 @@ var CrudDisplay = {
       this.submitSelectedItems = [{
         index: index,
         id: item.id
-      }]; // VERIFY IF CAN DELETE
-
-      this.setDeletable(item);
+      }];
       this.modal.set('delete', true);
-    },
-    setDeletable: function setDeletable(data) {
-      if ('verify_before_delete' in this.pageInfo) {
-        // CAN NOT DELETE
-        if (data[this.pageInfo.verify_before_delete] > 0) {
-          this.deletable = false;
-          return;
-        }
-      } // CAN  DELETE
-
-
-      this.deletable = true;
     },
     // DELETE MANY
     deleteManyItems: function deleteManyItems() {
@@ -62888,16 +62875,17 @@ var CrudDisplay = {
         deleteItemsInfo.unshift({
           index: selectedIndex,
           id: this.displayItems[selectedIndex]['id']
-        }); // VERIFY IF CAN DELETE
-
-        this.setDeletable(this.displayItems[selectedIndex]);
+        });
       }
 
       this.submitSelectedItems = deleteItemsInfo;
       this.modal.set('delete', true);
     },
     // DESTROY
-    destroyItem: function destroyItem(item) {// return  new DestroyItem( this.pageInfo.pageUrl + '/delete' , item );
+    destroyItem: function destroyItem(itemsToDelete) {
+      return new _core_StoreItem__WEBPACK_IMPORTED_MODULE_7__["default"](this.pageInfo.destroyItem, {
+        'delete': itemsToDelete
+      }, 'deletedItem', 'selectedFormList');
     },
     setNewValuesDisplay: function setNewValuesDisplay(value) {
       this.displayItems.unshift(value);
@@ -62981,8 +62969,7 @@ var CrudDisplay = {
       _this2.loadingPage = false;
     });
     _event_bus__WEBPACK_IMPORTED_MODULE_3__["default"].$on('createdItem', function (item) {
-      console.log(item); // hide modal
-
+      // hide modal
       _this2.modal.set('create', false); // get all fields dinamic from request
 
 
@@ -63021,9 +63008,9 @@ var CrudDisplay = {
 
       _this2.modal.set('edit', false);
     });
-    _event_bus__WEBPACK_IMPORTED_MODULE_3__["default"].$on('deleteItem', function (data) {
+    _event_bus__WEBPACK_IMPORTED_MODULE_3__["default"].$on('deletedItem', function (data) {
       // if has error
-      if (data.sucess == false) {
+      if (data.success == false) {
         // hide modal
         _this2.modal.set('delete', false);
 
