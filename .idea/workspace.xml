@@ -1,7 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="758227aa-c2e5-4ed8-970f-218c89d8a39d" name="Default" comment="" />
+    <list default="true" id="758227aa-c2e5-4ed8-970f-218c89d8a39d" name="Default" comment="">
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/Classes/Books/Destroy/DestroyBook.php" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/Classes/Books/Destroy/DestroyCategory.php" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/Classes/Books/ProcessBook.php" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/Classes/Books/ProcessBookDestroy.php" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/Classes/Books/Save/SaveBook.php" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/Classes/Books/Save/SyncBook.php" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/resources/js/components/MaskedInput.js" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/app/Classes/Books/LoadBookFormOptions.php" afterPath="$PROJECT_DIR$/app/Classes/Books/LoadBookFormOptions.php" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Books.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/Books.php" />
+      <change beforePath="$PROJECT_DIR$/public/assets/css/demo.css" afterPath="$PROJECT_DIR$/public/assets/css/demo.css" />
+      <change beforePath="$PROJECT_DIR$/public/assets/js/app.js" afterPath="$PROJECT_DIR$/public/assets/js/app.js" />
+      <change beforePath="$PROJECT_DIR$/resources/js/app.js" afterPath="$PROJECT_DIR$/resources/js/app.js" />
+      <change beforePath="$PROJECT_DIR$/resources/js/mixins/CrudDisplay.js" afterPath="$PROJECT_DIR$/resources/js/mixins/CrudDisplay.js" />
+      <change beforePath="$PROJECT_DIR$/resources/views/books.blade.php" afterPath="$PROJECT_DIR$/resources/views/books.blade.php" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layout/template.blade.php" afterPath="$PROJECT_DIR$/resources/views/layout/template.blade.php" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -11,11 +28,35 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="Books.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Books.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="306">
+              <caret line="18" column="30" lean-forward="true" selection-start-line="18" selection-start-column="30" selection-end-line="18" selection-end-column="30" />
+              <folding>
+                <element signature="e#40#68#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CrudDisplay.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/resources/js/mixins/CrudDisplay.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="408">
+              <caret line="80" column="50" lean-forward="true" selection-start-line="80" selection-start-column="50" selection-end-line="80" selection-end-column="50" />
+              <folding>
+                <element signature="e#45#87#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/js/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="641">
-              <caret line="64" column="43" lean-forward="false" selection-start-line="64" selection-start-column="43" selection-end-line="64" selection-end-column="43" />
+            <state relative-caret-position="437">
+              <caret line="62" column="79" lean-forward="false" selection-start-line="62" selection-start-column="79" selection-end-line="62" selection-end-column="79" />
               <folding>
                 <element signature="e#444#494#0" expanded="true" />
                 <element signature="e#607#654#0" expanded="true" />
@@ -25,109 +66,66 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FormDisplay.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/resources/js/core/FormDisplay.js">
+      <file leaf-file-name="ProcessBook.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Classes/Books/ProcessBook.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="19" column="0" lean-forward="true" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FormOptions.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/js/core/form/FormOptions.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="15" column="29" lean-forward="false" selection-start-line="15" selection-start-column="17" selection-end-line="15" selection-end-column="29" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FormError.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/js/mixins/FormError.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="22" column="72" lean-forward="false" selection-start-line="22" selection-start-column="72" selection-end-line="22" selection-end-column="72" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AllPagesMethods.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/js/mixins/AllPagesMethods.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="5" column="27" lean-forward="false" selection-start-line="5" selection-start-column="27" selection-end-line="5" selection-end-column="27" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CrudDisplay.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/js/mixins/CrudDisplay.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="91" column="39" lean-forward="false" selection-start-line="91" selection-start-column="34" selection-end-line="91" selection-end-column="39" />
+            <state relative-caret-position="61">
+              <caret line="25" column="33" lean-forward="true" selection-start-line="25" selection-start-column="33" selection-end-line="25" selection-end-column="33" />
               <folding>
-                <element signature="e#45#87#0" expanded="true" />
+                <element signature="e#119#155#0#PHP" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SelectBoxMany.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/js/components/SelectBoxMany.js">
+      <file leaf-file-name="ProcessBookDestroy.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Classes/Books/ProcessBookDestroy.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="81" column="0" lean-forward="false" selection-start-line="81" selection-start-column="0" selection-end-line="81" selection-end-column="0" />
+            <state relative-caret-position="90">
+              <caret line="26" column="31" lean-forward="false" selection-start-line="26" selection-start-column="25" selection-end-line="26" selection-end-column="31" />
               <folding>
-                <marker date="1556655171973" expanded="true" signature="213:1393" ph="..." />
-                <marker date="1556655171973" expanded="true" signature="269:1366" ph="..." />
-                <marker date="1556655171973" expanded="true" signature="340:1346" ph="..." />
-                <marker date="1556655171973" expanded="true" signature="381:658" ph="..." />
-                <marker date="1556655171973" expanded="true" signature="493:622" ph="..." />
-                <marker date="1556655171973" expanded="true" signature="692:1312" ph="..." />
-                <marker date="1556655171973" expanded="true" signature="762:1276" ph="..." />
-                <marker date="1556655171973" expanded="true" signature="965:1220" ph="..." />
+                <element signature="e#119#161#0#PHP" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="demo.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/assets/css/demo.css">
+      <file leaf-file-name="DestroyCategory.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Classes/Books/Destroy/DestroyCategory.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="561">
-              <caret line="1839" column="27" lean-forward="false" selection-start-line="1839" selection-start-column="27" selection-end-line="1839" selection-end-column="27" />
+            <state relative-caret-position="340">
+              <caret line="25" column="27" lean-forward="false" selection-start-line="25" selection-start-column="20" selection-end-line="25" selection-end-column="27" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="books.blade.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/books.blade.php">
+      <file leaf-file-name="SyncBook.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Classes/Books/Save/SyncBook.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="238">
-              <caret line="14" column="44" lean-forward="false" selection-start-line="14" selection-start-column="44" selection-end-line="14" selection-end-column="44" />
-              <folding>
-                <marker date="1556655616049" expanded="true" signature="9:26" ph="..." />
-                <marker date="1556655616049" expanded="true" signature="38:47" ph="..." />
-              </folding>
+              <caret line="19" column="27" lean-forward="false" selection-start-line="19" selection-start-column="20" selection-end-line="19" selection-end-column="27" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="template.blade.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/layout/template.blade.php">
+      <file leaf-file-name="SaveBook.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Classes/Books/Save/SaveBook.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="617">
-              <caret line="49" column="37" lean-forward="false" selection-start-line="49" selection-start-column="37" selection-end-line="49" selection-end-column="37" />
-              <folding>
-                <marker date="1556654727044" expanded="true" signature="446:460" ph="..." />
-                <marker date="1556654727044" expanded="true" signature="1555:1564" ph="..." />
-              </folding>
+            <state relative-caret-position="323">
+              <caret line="24" column="31" lean-forward="true" selection-start-line="24" selection-start-column="31" selection-end-line="24" selection-end-column="31" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DestroyBook.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Classes/Books/Destroy/DestroyBook.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="340">
+              <caret line="25" column="27" lean-forward="false" selection-start-line="25" selection-start-column="20" selection-end-line="25" selection-end-column="27" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -162,15 +160,25 @@
       <find>formDataLoaded</find>
       <find>drop</find>
       <find>formOptionDisplayLoaded</find>
+      <find>setArrayOptions</find>
+      <find>R$</find>
       <find>dropdown_menu</find>
       <find>selecteds</find>
-      <find>setArrayOptions</find>
+      <find>modal-mask</find>
+      <find>rese</find>
       <find>selectedFormList</find>
+      <find>masked-input</find>
+      <find>load</find>
+      <find>process</find>
+      <find>createItem</find>
     </findStrings>
     <replaceStrings>
-      <replace>selectedFormList.</replace>
       <replace>category_ids</replace>
+      <replace>selectedFormList.</replace>
     </replaceStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -194,21 +202,28 @@
         <option value="$PROJECT_DIR$/app/Classes/CreateDBSeed/CreateBook.php" />
         <option value="$PROJECT_DIR$/app/Classes/Books/LoadDisplay.php" />
         <option value="$PROJECT_DIR$/resources/js/mixins/BookListPage.js" />
-        <option value="$PROJECT_DIR$/app/Classes/Books/LoadBookFormOptions.php" />
         <option value="$PROJECT_DIR$/routes/web.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/Books.php" />
         <option value="$PROJECT_DIR$/app/Classes/Books/LoadBookDisplay.php" />
         <option value="$PROJECT_DIR$/resources/js/core/display/Pagination.js" />
         <option value="$PROJECT_DIR$/resources/js/mixins/AllPagesMethods.js" />
         <option value="$PROJECT_DIR$/resources/js/mixins/FormError.js" />
         <option value="$PROJECT_DIR$/resources/js/core/form/FormOptions.js" />
-        <option value="$PROJECT_DIR$/resources/js/mixins/CrudDisplay.js" />
+        <option value="$PROJECT_DIR$/resources/js/components/SelectBoxMany.js" />
+        <option value="$PROJECT_DIR$/resources/js/core/FormDisplay.js" />
+        <option value="$PROJECT_DIR$/resources/js/components/MaskedInput.js" />
         <option value="$PROJECT_DIR$/resources/views/layout/template.blade.php" />
         <option value="$PROJECT_DIR$/public/assets/css/demo.css" />
-        <option value="$PROJECT_DIR$/resources/js/components/SelectBoxMany.js" />
         <option value="$PROJECT_DIR$/resources/views/books.blade.php" />
+        <option value="$PROJECT_DIR$/app/Classes/Books/LoadBookFormOptions.php" />
+        <option value="$PROJECT_DIR$/app/Classes/Books/Save/SaveBook.php" />
+        <option value="$PROJECT_DIR$/app/Classes/Books/Save/SyncBook.php" />
+        <option value="$PROJECT_DIR$/app/Classes/Books/Destroy/DestroyCategory.php" />
+        <option value="$PROJECT_DIR$/app/Classes/Books/Destroy/DestroyBook.php" />
+        <option value="$PROJECT_DIR$/app/Classes/Books/ProcessBook.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Books.php" />
+        <option value="$PROJECT_DIR$/app/Classes/Books/ProcessBookDestroy.php" />
+        <option value="$PROJECT_DIR$/resources/js/mixins/CrudDisplay.js" />
         <option value="$PROJECT_DIR$/resources/js/app.js" />
-        <option value="$PROJECT_DIR$/resources/js/core/FormDisplay.js" />
       </list>
     </option>
   </component>
@@ -236,6 +251,7 @@
     <option name="width" value="1934" />
     <option name="height" value="1008" />
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
       <flattenPackages />
@@ -281,13 +297,45 @@
             <path>
               <item name="book_test" type="b2602c69:ProjectViewProjectNode" />
               <item name="book_test" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="public" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="Classes" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="Books" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="Destroy" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
               <item name="book_test" type="b2602c69:ProjectViewProjectNode" />
               <item name="book_test" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="public" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="assets" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="Classes" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="Books" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="Save" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="book_test" type="b2602c69:ProjectViewProjectNode" />
+              <item name="book_test" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="Classes" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="CreateDBSeed" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="book_test" type="b2602c69:ProjectViewProjectNode" />
+              <item name="book_test" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="Http" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="book_test" type="b2602c69:ProjectViewProjectNode" />
+              <item name="book_test" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="Http" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="Controllers" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="book_test" type="b2602c69:ProjectViewProjectNode" />
+              <item name="book_test" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="Http" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="Requests" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
               <item name="book_test" type="b2602c69:ProjectViewProjectNode" />
@@ -324,16 +372,16 @@
     <property name="settings.editor.selected.configurable" value="Settings.JavaScript" />
     <property name="JavaScriptWeakerCompletionTypeGuess" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="SearchEverywhereHistoryKey" value="demo&#9;FILE&#9;file://E:/docker/book_test/public/assets/css/demo.css&#10;web&#9;FILE&#9;file://E:/docker/book_test/routes/web.php&#10;app&#9;FILE&#9;file://E:/docker/book_test/resources/js/app.js&#10;app.js&#9;FILE&#9;file://E:/docker/book_test/resources/js/app.js" />
+    <property name="SearchEverywhereHistoryKey" value="modal&#9;FILE&#9;file://E:/docker/book_test/node_modules/bootstrap/js/src/modal.js&#10;demo&#9;FILE&#9;file://E:/docker/book_test/public/assets/css/demo.css&#10;web&#9;FILE&#9;file://E:/docker/book_test/routes/web.php&#10;app&#9;FILE&#9;file://E:/docker/book_test/resources/js/app.js&#10;app.js&#9;FILE&#9;file://E:/docker/book_test/resources/js/app.js" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\docker\book_test\resources\js\core" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\docker\book_test\resources\js\components" />
       <recent name="E:\docker\book_test\resources\js\mixins" />
       <recent name="E:\docker\book_test\public\assets\images\loadings" />
-      <recent name="E:\docker\book_test\resources\js\components" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -363,12 +411,12 @@
       <updated>1556535440155</updated>
       <workItem from="1556567423057" duration="966000" />
       <workItem from="1556569971385" duration="3538000" />
-      <workItem from="1556579184171" duration="28830000" />
+      <workItem from="1556579184171" duration="37277000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="33334000" />
+    <option name="totallyTimeSpent" value="41781000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -376,7 +424,7 @@
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.32946146" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32946146" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -406,85 +454,10 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/database/seeds/DatabaseSeeder.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="21" column="19" lean-forward="true" selection-start-line="21" selection-start-column="19" selection-end-line="21" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Classes/CreateDBSeed/DB/DBBook.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="12" column="1" lean-forward="true" selection-start-line="12" selection-start-column="1" selection-end-line="12" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Providers/AppServiceProvider.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="14" column="30" lean-forward="false" selection-start-line="14" selection-start-column="30" selection-end-line="14" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Classes/Utilities/ResetMigrationTables.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="10" column="1" lean-forward="false" selection-start-line="10" selection-start-column="1" selection-end-line="10" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Classes/CreateDBSeed/CreateBookCategory.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="16" column="45" lean-forward="true" selection-start-line="16" selection-start-column="45" selection-end-line="16" selection-end-column="45" />
-          <folding>
-            <element signature="e#127#174#0#PHP" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Classes/CreateDBSeed/DB/DBBookCategory.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="17" column="27" lean-forward="true" selection-start-line="17" selection-start-column="27" selection-end-line="17" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Providers/AppServiceProvider.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="14" column="30" lean-forward="false" selection-start-line="14" selection-start-column="30" selection-end-line="14" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Classes/CreateDBSeed/CreateBookCategory.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="16" column="45" lean-forward="false" selection-start-line="16" selection-start-column="45" selection-end-line="16" selection-end-column="45" />
-          <folding>
-            <element signature="e#127#174#0#PHP" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/VueCrudController2 .php" />
     <entry file="file://$PROJECT_DIR$/resources/views/welcome.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="42">
           <caret line="31" column="36" lean-forward="false" selection-start-line="31" selection-start-column="36" selection-end-line="31" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Requests/BookRequest.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="20" lean-forward="true" selection-start-line="15" selection-start-column="20" selection-end-line="15" selection-end-column="20" />
           <folding />
         </state>
       </provider>
@@ -589,16 +562,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Classes/CreateDBSeed/CreateBook.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="29" column="52" lean-forward="false" selection-start-line="29" selection-start-column="40" selection-end-line="29" selection-end-column="52" />
-          <folding>
-            <element signature="e#127#166#0#PHP" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/BookCategory.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
@@ -627,14 +590,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="335">
           <caret line="130" column="20" lean-forward="false" selection-start-line="120" selection-start-column="7" selection-end-line="130" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/js/components/Modal.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -679,32 +634,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Classes/Books/LoadBookDisplay.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Classes/Books/LoadBookFormOptions.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="16" column="5" lean-forward="false" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Books.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="40" column="0" lean-forward="false" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
-          <folding>
-            <element signature="e#40#68#0#PHP" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/routes/web.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
@@ -742,25 +671,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/js/mixins/FormError.js">
+    <entry file="file://$PROJECT_DIR$/resources/js/core/form/FormOptions.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="22" column="72" lean-forward="false" selection-start-line="22" selection-start-column="72" selection-end-line="22" selection-end-column="72" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/assets/css/demo.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="561">
-          <caret line="1839" column="27" lean-forward="false" selection-start-line="1839" selection-start-column="27" selection-end-line="1839" selection-end-column="27" />
+        <state relative-caret-position="255">
+          <caret line="15" column="29" lean-forward="false" selection-start-line="15" selection-start-column="17" selection-end-line="15" selection-end-column="29" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/js/components/SelectBoxMany.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
+        <state relative-caret-position="561">
           <caret line="81" column="0" lean-forward="false" selection-start-line="81" selection-start-column="0" selection-end-line="81" selection-end-column="0" />
           <folding>
             <marker date="1556655171973" expanded="true" signature="213:1393" ph="..." />
@@ -777,48 +698,185 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/layout/template.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="617">
-          <caret line="49" column="37" lean-forward="false" selection-start-line="49" selection-start-column="37" selection-end-line="49" selection-end-column="37" />
+        <state relative-caret-position="311">
+          <caret line="47" column="0" lean-forward="true" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
           <folding>
-            <marker date="1556654727044" expanded="true" signature="446:460" ph="..." />
-            <marker date="1556654727044" expanded="true" signature="1555:1564" ph="..." />
+            <marker date="1556672579678" expanded="true" signature="446:460" ph="..." />
+            <marker date="1556672579678" expanded="true" signature="1547:1556" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/js/core/form/FormOptions.js">
+    <entry file="file://$PROJECT_DIR$/node_modules/bootstrap/js/src/modal.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="29" lean-forward="false" selection-start-line="15" selection-start-column="17" selection-end-line="15" selection-end-column="29" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/assets/css/demo.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="1359" column="22" lean-forward="true" selection-start-line="1359" selection-start-column="22" selection-end-line="1359" selection-end-column="22" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/js/mixins/CrudDisplay.js">
+    <entry file="file://$PROJECT_DIR$/resources/js/components/Modal.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="91" column="39" lean-forward="false" selection-start-line="91" selection-start-column="34" selection-end-line="91" selection-end-column="39" />
+        <state relative-caret-position="221">
+          <caret line="13" column="36" lean-forward="true" selection-start-line="13" selection-start-column="36" selection-end-line="13" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/js/components/MaskedInput.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="14" column="32" lean-forward="true" selection-start-line="14" selection-start-column="32" selection-end-line="14" selection-end-column="32" />
           <folding>
-            <element signature="e#45#87#0" expanded="true" />
+            <marker date="1556656852813" expanded="true" signature="130:356" ph="..." />
+            <marker date="1556656852813" expanded="true" signature="144:345" ph="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/js/core/FormDisplay.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="15" column="5" lean-forward="false" selection-start-line="15" selection-start-column="5" selection-end-line="15" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/js/mixins/FormError.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="22" column="72" lean-forward="false" selection-start-line="22" selection-start-column="72" selection-end-line="22" selection-end-column="72" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/js/core/StoreItem.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="22" column="52" lean-forward="false" selection-start-line="22" selection-start-column="44" selection-end-line="22" selection-end-column="52" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/books.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="44" lean-forward="false" selection-start-line="14" selection-start-column="44" selection-end-line="14" selection-end-column="44" />
+        <state relative-caret-position="204">
+          <caret line="12" column="68" lean-forward="false" selection-start-line="12" selection-start-column="68" selection-end-line="12" selection-end-column="68" />
           <folding>
-            <marker date="1556655616049" expanded="true" signature="9:26" ph="..." />
-            <marker date="1556655616049" expanded="true" signature="38:47" ph="..." />
+            <marker date="1556672655654" expanded="true" signature="9:26" ph="..." />
+            <marker date="1556672655654" expanded="true" signature="38:47" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Requests/BookRequest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="26" column="63" lean-forward="true" selection-start-line="26" selection-start-column="63" selection-end-line="26" selection-end-column="63" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Classes/CreateDBSeed/CreateBook.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="30" column="27" lean-forward="true" selection-start-line="28" selection-start-column="16" selection-end-line="30" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Classes/Books/LoadBookFormOptions.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="5" lean-forward="true" selection-start-line="0" selection-start-column="5" selection-end-line="0" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Classes/Books/LoadBookDisplay.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-85">
+          <caret line="15" column="31" lean-forward="false" selection-start-line="13" selection-start-column="3" selection-end-line="15" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Classes/Books/Save/SyncBook.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="19" column="27" lean-forward="false" selection-start-line="19" selection-start-column="20" selection-end-line="19" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Classes/Books/Save/SaveBook.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="24" column="31" lean-forward="true" selection-start-line="24" selection-start-column="31" selection-end-line="24" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Classes/Books/Destroy/DestroyCategory.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="25" column="27" lean-forward="false" selection-start-line="25" selection-start-column="20" selection-end-line="25" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Classes/Books/Destroy/DestroyBook.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="25" column="27" lean-forward="false" selection-start-line="25" selection-start-column="20" selection-end-line="25" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Classes/Books/ProcessBook.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="61">
+          <caret line="25" column="33" lean-forward="true" selection-start-line="25" selection-start-column="33" selection-end-line="25" selection-end-column="33" />
+          <folding>
+            <element signature="e#119#155#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Classes/Books/ProcessBookDestroy.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="26" column="31" lean-forward="false" selection-start-line="26" selection-start-column="25" selection-end-line="26" selection-end-column="31" />
+          <folding>
+            <element signature="e#119#161#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Books.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="30" lean-forward="true" selection-start-line="18" selection-start-column="30" selection-end-line="18" selection-end-column="30" />
+          <folding>
+            <element signature="e#40#68#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/js/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="641">
-          <caret line="64" column="43" lean-forward="false" selection-start-line="64" selection-start-column="43" selection-end-line="64" selection-end-column="43" />
+        <state relative-caret-position="437">
+          <caret line="62" column="79" lean-forward="false" selection-start-line="62" selection-start-column="79" selection-end-line="62" selection-end-column="79" />
           <folding>
             <element signature="e#444#494#0" expanded="true" />
             <element signature="e#607#654#0" expanded="true" />
@@ -827,11 +885,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/js/core/FormDisplay.js">
+    <entry file="file://$PROJECT_DIR$/resources/js/mixins/CrudDisplay.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="19" column="0" lean-forward="true" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="408">
+          <caret line="80" column="50" lean-forward="true" selection-start-line="80" selection-start-column="50" selection-end-line="80" selection-end-column="50" />
+          <folding>
+            <element signature="e#45#87#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

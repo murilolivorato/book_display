@@ -12,7 +12,7 @@
         <template slot="body" >
             <form method="POST" action="" @submit.prevent="storeItem()">
                 <div class="modal-body">
-                        @{{ selectedFormList }}
+
                     <!-- CATEGORY-->
                     <div class="form-group">
                         <label for="title">Category</label>
@@ -45,7 +45,7 @@
                     <!-- PRICE-->
                     <div class="form-group">
                         <label for="title">Price</label>
-                        <input class="form-control border-input" placeholder="Price" v-model="selectedFormList.price"  type="text"  >
+                        <masked-input   v-model="selectedFormList.price"  placehold="Price" mask-type="price" ></masked-input>
                         <span class="error-msg" v-if="errors.has('selectedFormList.price')" v-text="errors.get('selectedFormList.price')"></span>
                     </div>
 
@@ -129,7 +129,6 @@
                 <div class="card">
 
                     <div class="header">
-
                         <p class="total_row_values"><span>Total of</span> <span class="total_row_number" id="total_row_number">  @{{ pagination.pagination.total }}  </span> <span>Records</span> </p>
                     </div>
 

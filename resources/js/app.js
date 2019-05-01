@@ -35,7 +35,7 @@ import SelectBox from './components/SelectBox';
 import SelectBoxMany from './components/SelectBoxMany';
 import Modal from './components/Modal';
 import SubmitBtn from './components/SubmitBtn';
-
+import MaskedInput from './components/MaskedInput';
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -52,13 +52,18 @@ if (document.querySelector('#books-pg')) {
     Vue.component('modal', Modal);
     Vue.component('select-box', SelectBox);
     Vue.component('select-box-many', SelectBoxMany);
-
+    Vue.component('masked-input', MaskedInput);
 
 
     const app = new Vue({
         el: '#books-pg' ,
         data: {
-            pageInfo: {pageUrl: '/books' , loadDisplayUrl :'/books/load-display'  , loadDisplayFormOptionUrl:'/books/display-form-options' } ,
+            pageInfo: {pageUrl: '/books' ,
+                       loadDisplayUrl :'/books/load-display'  ,
+                       loadDisplayFormOptionUrl:'/books/display-form-options' ,
+                       storeItem:'/books/store' ,
+                       updateItem:'/books/update' ,
+                       destroyItem:'/books/destroy'} ,
             formOptions: new FormOptions({category:'' }) ,
             displayItems: [{  id:'' , category_id:'' , isbn:'', author:'', price:'', title:'' }] ,
             selectSearch:   new PageFilter({category:'' , isbn :'' , author:'' })  ,

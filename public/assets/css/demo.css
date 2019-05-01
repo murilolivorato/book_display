@@ -1320,7 +1320,7 @@ p.label_1 {
 
 .modal-mask {
 	position: fixed;
-	z-index: 9998;
+	z-index: 700;
 	top: 0;
 	left: 0;
 	width: 100%;
@@ -1328,12 +1328,19 @@ p.label_1 {
 	background-color: rgba(0, 0, 0, .5);
 	display: table;
 	transition: opacity .3s ease;
-}
 
+
+}
+.modal-mask form {
+	padding:0px;
+	margin:0px;
+}
 
 .modal-wrapper {
 	display: table-cell;
 	vertical-align: middle;
+
+
 }
 
 .modal-container {
@@ -1346,12 +1353,21 @@ p.label_1 {
 	font-family: Helvetica, Arial, sans-serif;
 	border-radius:8px;
 	position:relative;
+
+
 }
 
 .modal-container.big1{
 
 	width: 1100px !important;
 }
+
+.modal-container.big2{
+
+	width: 900px !important;
+}
+
+
 
 /* ------------------------  img-modal */
 .modal-mask.image-modal .modal-container {

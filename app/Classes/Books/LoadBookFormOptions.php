@@ -11,6 +11,8 @@ use App\BookCategory;
 
 class LoadBookFormOptions
 {
+    protected $request;
+
     public static function load($request){
 
         return  (new static)->handle($request);

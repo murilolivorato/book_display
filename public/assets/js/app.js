@@ -60818,6 +60818,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_SelectBoxMany__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/SelectBoxMany */ "./resources/js/components/SelectBoxMany.js");
 /* harmony import */ var _components_Modal__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/Modal */ "./resources/js/components/Modal.js");
 /* harmony import */ var _components_SubmitBtn__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/SubmitBtn */ "./resources/js/components/SubmitBtn.js");
+/* harmony import */ var _components_MaskedInput__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/MaskedInput */ "./resources/js/components/MaskedInput.js");
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -60849,6 +60850,7 @@ Vue.use(vue_sweetalert2__WEBPACK_IMPORTED_MODULE_1__["default"]);
 
 
 
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -60861,13 +60863,17 @@ if (document.querySelector('#books-pg')) {
   Vue.component('modal', _components_Modal__WEBPACK_IMPORTED_MODULE_12__["default"]);
   Vue.component('select-box', _components_SelectBox__WEBPACK_IMPORTED_MODULE_10__["default"]);
   Vue.component('select-box-many', _components_SelectBoxMany__WEBPACK_IMPORTED_MODULE_11__["default"]);
+  Vue.component('masked-input', _components_MaskedInput__WEBPACK_IMPORTED_MODULE_14__["default"]);
   var app = new Vue({
     el: '#books-pg',
     data: {
       pageInfo: {
         pageUrl: '/books',
         loadDisplayUrl: '/books/load-display',
-        loadDisplayFormOptionUrl: '/books/display-form-options'
+        loadDisplayFormOptionUrl: '/books/display-form-options',
+        storeItem: '/books/store',
+        updateItem: '/books/update',
+        destroyItem: '/books/destroy'
       },
       formOptions: new _core_form_FormOptions__WEBPACK_IMPORTED_MODULE_3__["default"]({
         category: ''
@@ -60959,6 +60965,226 @@ if (token) {
 
 /***/ }),
 
+/***/ "./resources/js/components/MaskedInput.js":
+/*!************************************************!*\
+  !*** ./resources/js/components/MaskedInput.js ***!
+  \************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/**
+ * Created by Murilo on 4/10/2017.
+ */
+
+/**
+ * Created by Murilo on 3/1/2017.
+ */
+var MaskedInput = {
+  template: "  <div>\n      <input \n        type=\"text\"\n      \tv-model=\"displayValue\" \n        @blur=\"handleInputState\"\n        @focus=\"handleInputState\"\n        class=\"form-control border-input\"\n        :placeholder=\"textPlanceHolder\">\n    </div>",
+  props: {
+    value: {
+      "default": null
+    },
+    maskType: {
+      type: String
+    },
+    placehold: {
+      type: String,
+      "default": null
+    }
+  },
+  data: function data() {
+    return {
+      inputFocused: false
+    };
+  },
+  methods: {
+    handleInputState: function handleInputState(event) {
+      this.inputFocused = event.type === 'focus';
+    },
+    unmask: function unmask(value) {
+      switch (this.maskType) {
+        case 'price':
+        case 'price_round_cent':
+        case 'percentage':
+        case 'square_meter':
+        case 'ha':
+        case 'year':
+          return this.unformatZero(value);
+
+        case 'date':
+        case 'phone':
+        case 'phone_no_ddd':
+        case 'zip_code':
+          return this.unformatEmpty(value);
+
+        default:
+          return '';
+      }
+    },
+    mask: function mask(_int) {
+      switch (this.maskType) {
+        case 'price':
+          return this.formatPrice(_int);
+
+        case 'price_round_cent':
+          return this.formatPriceRoundCent(_int);
+
+        case 'date':
+          return this.formatDate(_int);
+
+        case 'phone':
+          return this.formatPhone(_int);
+
+        case 'phone_no_ddd':
+          return this.formatPhonenoDDD(_int);
+
+        case 'zip_code':
+          return this.formatZipCode(_int);
+
+        case 'percentage':
+          return this.formatPercentage(_int);
+
+        case 'square_meter':
+          return this.formatSquareMeter(_int);
+
+        case 'ha':
+          return this.formatHa(_int);
+
+        case 'year':
+          return this.formatYear(_int);
+
+        default:
+          return '';
+      }
+    },
+    formatZipCode: function formatZipCode(_int2) {
+      var tmp = _int2 + '';
+      tmp = tmp.replace(/\D/g, "");
+      tmp = tmp.replace(/(\d{5})(\d)/, "$1-$2");
+      return tmp.substring(0, 9);
+    },
+    formatPhone: function formatPhone(_int3) {
+      var tmp = _int3 + '';
+      tmp = tmp.replace(/\D/g, "");
+      tmp = tmp.replace(/(\d{0})(\d)/, "$1($2");
+      tmp = tmp.replace(/(\d{2})(\d)/, "$1)$2");
+      tmp = tmp.replace(/(\d{5})(\d)/, "$1-$2");
+      return tmp.substring(0, 14);
+    },
+    formatPhonenoDDD: function formatPhonenoDDD(_int4) {
+      var tmp = _int4 + '';
+      tmp = tmp.replace(/\D/g, "");
+      tmp = tmp.replace(/(\d{5})(\d)/, "$1-$2");
+      return tmp.substring(0, 10);
+    },
+    formatDate: function formatDate(_int5) {
+      var tmp = _int5 + '';
+      tmp = tmp.replace(/\D/g, "");
+      tmp = tmp.replace(/(\d{2})(\d)/, "$1/$2");
+      tmp = tmp.replace(/(\d{2})(\d)/, "$1/$2");
+      return tmp.substring(0, 10);
+    },
+    formatPriceRoundCent: function formatPriceRoundCent(_int6) {
+      var tmp = _int6 + '';
+      if (tmp.length > 3) tmp = tmp.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
+
+      if (tmp == 0) {
+        return "";
+      }
+
+      return '£ ' + tmp + ',00';
+    },
+    formatPrice: function formatPrice(_int7) {
+      var tmp = _int7 + '';
+      tmp = tmp.replace(/([0-9]{2})$/g, ",$1");
+      if (tmp.length > 6) tmp = tmp.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
+
+      if (tmp == 0) {
+        return "";
+      }
+
+      return '£ ' + tmp;
+    },
+    formatPercentage: function formatPercentage(_int8) {
+      var tmp = _int8 + '';
+      tmp = tmp.replace(/\D/g, "");
+
+      if (tmp == 0) {
+        return "";
+      }
+
+      return tmp.substring(0, 3) + ' % ';
+    },
+    formatSquareMeter: function formatSquareMeter(_int9) {
+      var tmp = _int9 + '';
+      tmp = tmp.replace(/\D/g, "");
+
+      if (tmp == 0) {
+        return "";
+      }
+
+      return tmp.substring(0, 3) + ' m ²';
+    },
+    formatHa: function formatHa(_int10) {
+      var tmp = _int10 + '';
+      tmp = tmp.replace(/\D/g, "");
+
+      if (tmp == 0) {
+        return "";
+      }
+
+      return tmp.substring(0, 3) + ' Ha';
+    },
+    formatYear: function formatYear(_int11) {
+      var tmp = _int11 + '';
+
+      if (tmp == 0) {
+        return "";
+      }
+
+      return tmp.substr(0, 4);
+    },
+    unformatZero: function unformatZero(value) {
+      value = parseFloat(value.replace(/[^\d\.]/g, ""));
+      return isNaN(value) ? 0 : value;
+    },
+    unformatEmpty: function unformatEmpty(value, num_max_space) {
+      value = value.substring(0, num_max_space);
+      return isNaN(value) ? "" : value;
+      /*value = value.substring(0,8);
+      value = parseFloat(value.replace(/[^\d\.]/g, ""))
+      return isNaN(value)
+          ? ""
+          : value; */
+    }
+  },
+  computed: {
+    displayValue: {
+      get: function get() {
+        if (this.inputFocused) {
+          return this.value.toString();
+        } else {
+          return this.mask(this.value);
+        }
+      },
+      set: function set(modifiedValue) {
+        this.$emit('input', this.unmask(modifiedValue));
+      }
+    },
+    textPlanceHolder: function textPlanceHolder() {
+      if (this.placehold != null) {
+        return this.placehold;
+      }
+    }
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = (MaskedInput);
+
+/***/ }),
+
 /***/ "./resources/js/components/Modal.js":
 /*!******************************************!*\
   !*** ./resources/js/components/Modal.js ***!
@@ -61006,7 +61232,7 @@ var Modal = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _mixins_ClickOutSideEvent__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../mixins/ClickOutSideEvent */ "./resources/js/mixins/ClickOutSideEvent.js");
+/* harmony import */ var _mixins_ClickOutSideEvent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../mixins/ClickOutSideEvent */ "./resources/js/mixins/ClickOutSideEvent.js");
 /* harmony import */ var _event_bus__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../event-bus */ "./resources/js/event-bus.js");
 /**
  * Created by Murilo on 3/3/2017.
@@ -61121,7 +61347,7 @@ var SelectBox = {
       }
     });
   },
-  mixins: [_mixins_ClickOutSideEvent__WEBPACK_IMPORTED_MODULE_2__["default"]]
+  mixins: [_mixins_ClickOutSideEvent__WEBPACK_IMPORTED_MODULE_0__["default"]]
 };
 /* harmony default export */ __webpack_exports__["default"] = (SelectBox);
 
@@ -62578,8 +62804,8 @@ var CrudDisplay = {
     },
     // STORE
     storeItem: function storeItem() {
-      var data = this.forms.data();
-      return new _core_StoreItem__WEBPACK_IMPORTED_MODULE_7__["default"](this.pageInfo.pageUrl + '/store-item', data, 'createItem');
+      var pageForm = this.selectedFormList.data();
+      return new _core_StoreItem__WEBPACK_IMPORTED_MODULE_7__["default"](this.pageInfo.storeItem, pageForm, 'formSuccess', 'selectedFormList');
     },
     // CREATE
     createItem: function createItem() {
@@ -62812,6 +63038,9 @@ var CrudDisplay = {
       _this2.submitSelectedItems = []; // hide modal
 
       _this2.modal.set('delete', false);
+    });
+    _event_bus__WEBPACK_IMPORTED_MODULE_3__["default"].$on('formError', function (data) {
+      _this2.errors.record(data);
     });
   }
 };

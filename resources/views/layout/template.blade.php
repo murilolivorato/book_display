@@ -26,21 +26,13 @@
     <!--  Paper Dashboard core CSS    -->
     <link href="/assets/css/paper-dashboard.css" rel="stylesheet"/>
 
-
-
     <!--  CSS for Demo Purpose, don't include it in your project     -->
     <link href="/assets/css/demo.css" rel="stylesheet" />
     <link rel="stylesheet" href="/assets/css/hint.css">
 
-
-
     <link href="/assets/css/themify-icons.css" rel="stylesheet">
 
-
     <link href="https://cdn.jsdelivr.net/sweetalert2/6.3.2/sweetalert2.css" rel="stylesheet">
-
-
-
 
 </head>
 <body>
@@ -62,9 +54,6 @@
 
 
         <footer class="footer">
-
-
-
             <div class="container-fluid">
 
                 <div class="copyright pull-right">

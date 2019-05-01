@@ -84,8 +84,8 @@ const CrudDisplay = {
 
         // STORE
         storeItem() {
-            let data =  this.forms.data();
-            return  new StoreItem(  this.pageInfo.pageUrl + '/store-item' , data , 'createItem' );
+            let pageForm =  this.selectedFormList.data();
+            return  new StoreItem(  this.pageInfo.storeItem , pageForm , 'formSuccess' , 'selectedFormList' );
         } ,
         // CREATE
         createItem() {
@@ -396,6 +396,14 @@ const CrudDisplay = {
             this.modal.set('delete', false);
 
         });
+
+
+        EventBus.$on('formError' , (data) => {
+
+            this.errors.record(data);
+
+        });
+
 
 
 
