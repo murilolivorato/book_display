@@ -47,6 +47,7 @@ class LoadBookDisplay
 
 
         $result  = Book::select(['id',  'isbn',  'author',  'price',  'title', ])
+            ->orderBy('id', 'desc')
 
             // WHEN HAS ISBN
             ->when($isbn, function ($query) use ($isbn) {

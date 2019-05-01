@@ -8,6 +8,7 @@
 
 namespace App\Classes\Books\Save;
 use App\Book;
+use Illuminate\Http\Request;
 
 class SaveBook
 {

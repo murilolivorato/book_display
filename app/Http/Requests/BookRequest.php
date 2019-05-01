@@ -25,8 +25,10 @@ class BookRequest extends FormRequest
     {
         return [
             'title'               => 'required|min:3|max:250' ,
-            'sub_title'           => 'required|min:3|max:250' ,
-            'description'         => 'required'
+            'isbn'                => 'required' ,
+            'author'              => 'required' ,
+            'price'               => 'required' ,
+            'category_id'         => 'required'
         ];
     }
 }

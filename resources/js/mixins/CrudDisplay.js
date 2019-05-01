@@ -23,17 +23,15 @@ const CrudDisplay = {
         modal:new CrudModal({create:false , edit:false , delete:false , view:false , filter:false}),
         pagination: new Pagination({total: 0, per_page: 10, from: 1,to: 0, current_page: 1 , last_page: 1, offset: 3}),
         paginationNumbers:[] ,
-        formErrors:{},
         selectedItems:[] ,
         submitSelectedItems:[] ,
         deletable:true,
-        errors: new Errors() ,
         isLoaded:{'forms': false , 'page': false} ,
 
 
     } ,
     mounted: function () {
-
+        // IF SHOW MESSAGE IS TRUE
         new LoadForm(this.pageInfo.loadDisplayFormOptionUrl , 'formOptionDisplayLoaded' );
 
         // LOAD FORMS BUS
@@ -76,33 +74,36 @@ const CrudDisplay = {
 
 
         } ,
-        //VIEW
+       /* //VIEW
         viewItem(item ,index = this.displayItems.indexOf(item)){
             this.forms.setFillItem(item , index );
             this.modal.set('view', true);
-        },
+        },*/
 
-        // STORE
-        storeItem() {
-            let pageForm =  this.selectedFormList.data();
-            return  new StoreItem(  this.pageInfo.storeItem , pageForm , 'formSuccess' , 'selectedFormList' );
-        } ,
         // CREATE
         createItem() {
             this.selectedFormList.reset();
             this.modal.set('create', true);
         } ,
 
+        // STORE
+        storeItem() {
+            let pageForm =  this.selectedFormList.data();
+            return  new StoreItem(  this.pageInfo.storeItem , pageForm , 'createdItem' , 'selectedFormList' );
+        } ,
+
         // EDIT
         editItem(item ,index = this.displayItems.indexOf(item)){
-            this.forms.setFillItem(item , index );
+            this.selectedFormList.setFillItem(item , index );
+            // SET THE INDEX
+            this.selectedFormList.index = index;
             this.modal.set('edit', true);
         } ,
 
         // UPDATE
         updateItem() {
-            let data  =  this.forms.data();
-            return  new StoreItem(  this.pageInfo.pageUrl + '/update-item' , data , 'updateItem' );
+            let pageForm  =  this.selectedFormList.data();
+            return  new StoreItem(  this.pageInfo.updateItem + '/' + pageForm.id , pageForm , 'updatedItem' , 'selectedFormList' );
         } ,
 
 
@@ -181,13 +182,7 @@ const CrudDisplay = {
         } ,
         setNewValuesDisplay(value){
 
-            for (let prop in value)
-            {
-
-
-                this.displayItems.unshift(value[prop]);
-            }
-
+            this.displayItems.unshift(value);
 
         } ,
         separetaItemsValue(value , nameField){
@@ -280,12 +275,6 @@ const CrudDisplay = {
     } ,
 
     created(){
-/*
-        EventBus.$on('formDataLoaded' , (item) => {
-
-
-            this.formOptions.setFillItem(item);
-        });*/
 
 
         EventBus.$on('setPaginationNumbers' , (val) => {
@@ -314,18 +303,22 @@ const CrudDisplay = {
 
         });
 
-        EventBus.$on('createItem' ,  (item) => {
-
-
+        EventBus.$on('createdItem' ,  (item) => {
+                console.log(item);
             // hide modal
             this.modal.set('create', false);
 
             // get all fields dinamic from request
-            this.setNewValuesDisplay(item);
+            this.setNewValuesDisplay(item.new_record);
 
-            /* this.pagination.changePageStatus('add' , 1); */
+            // IF HAS ERROR , SHOW THE ERROR MESSAGE
+            if(item.success == false){
+                new FlashMessage('error', item.message);
+                return;
+            }
 
-            new FlashMessage('success' , 'Alteração Realizada com Sucesso');
+            // IF SHOW MESSAGE IS TRUE
+            new FlashMessage('success', item.message  );
 
         });
 
@@ -356,13 +349,13 @@ const CrudDisplay = {
         });
 
 
-        EventBus.$on('updateItem' , (data) => {
+        EventBus.$on('updatedItem' , (data) => {
 
-            // set new value item
-            /* this.setNewItemDisplay(data); */
+            const newRecord = data['new_record'];
 
-            for (var prop in data) {
-                this.displayItems[data.index][prop]        =     data[prop];
+            for (var prop in newRecord) {
+
+                this.displayItems[newRecord.index][prop]        =     newRecord[prop];
             }
             // hide modal
             this.modal.set('edit', false);
@@ -394,13 +387,6 @@ const CrudDisplay = {
             this.submitSelectedItems = [];
             // hide modal
             this.modal.set('delete', false);
-
-        });
-
-
-        EventBus.$on('formError' , (data) => {
-
-            this.errors.record(data);
 
         });
 

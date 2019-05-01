@@ -23,7 +23,7 @@ class ProcessBook
     private function handle($request , $books ){
         return   $this->setRequest($request)
                       ->save($books)
-                      ->result();
+                      ->getResult();
     }
 
     // SET REQUEST
@@ -51,15 +51,16 @@ class ProcessBook
 
     public function getResult(){
 
-        if(! $this->result ){
+        if(! $this->result['success'] ){
             return response()->json(['success'  =>  false ,
                                      'message' => 'It Has an Error !!' ]);
 
         }
 
-        // success
-        return response()->json(['success'  =>  true ,
-                                 'message'  => 'Saved' ]);
+        // SUCCESS
+        return response()->json(['success'    =>  true ,
+                                 'message'    => 'Saved' ,
+                                 'new_record' => $this->result['new_record'] ]);
     }
 
 

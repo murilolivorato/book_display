@@ -7,6 +7,7 @@
  */
 namespace App\Classes\Books\Save;
 use App\Book;
+use App\BookCategory;
 
 class SyncBook
 {
@@ -30,6 +31,16 @@ class SyncBook
 
         }
 
-        return $this->book;
+        return [
+               'success'    => true ,
+               'new_record' => [
+                   'index'        => $this->request['index'] ,
+                   'isbn'         => $this->request['isbn'] ,
+                   'author'       => $this->request['author'] ,
+                   'price'        => $this->request['price'] ,
+                   'title'        => $this->request['title'] ,
+                   'category'     => BookCategory::select(['id', 'title'])->whereIn('id' , $this->request['category_id'])->orderBy('id', 'ASC')->get() ,
+               ]
+        ];
     }
 }

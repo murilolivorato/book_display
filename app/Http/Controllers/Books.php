@@ -69,7 +69,7 @@ class Books extends Controller
     {
 
         // BOOK
-        $book = Book::find($id)->first();
+        $book = Book::find($id);
 
         if($book){
             return  ProcessBook::process($request ,  $book );

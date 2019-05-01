@@ -1,7 +1,6 @@
 class Errors{
     constructor(){
         this.errors = {};
-
     }
 
     get(field){
@@ -11,9 +10,9 @@ class Errors{
 
             // IT IS AN ARRAY FORM
             if(splitString.length > 2){
-               if(this.errors[splitString[0]][splitString[1] + '.' + splitString[2]]){
-                   return this.errors[splitString[0]][splitString[1] + '.' + splitString[2]][0];
-               }
+                if(this.errors[splitString[0]][splitString[1] + '.' + splitString[2]]){
+                    return this.errors[splitString[0]][splitString[1] + '.' + splitString[2]][0];
+                }
             }
 
 
@@ -34,7 +33,9 @@ class Errors{
     record(errors , list = null){
 
         if(list){
+            this.errors = [list];
             this.errors[list] = errors;
+
             return;
         }
 
@@ -123,7 +124,7 @@ class Errors{
             let listName = splitString[0];
             let fieldName  = splitString[1];
 
-             delete this.errors[listName][fieldName];
+            delete this.errors[listName][fieldName];
             return;
         }
 

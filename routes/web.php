@@ -34,7 +34,7 @@ Route::post('books/store' , [
     'uses'        => 'Books@store' , 'as'          => 'books.store'
 ]);
 
-Route::post('books/update' , [
+Route::post('books/update/{id}' , [
     'uses'        => 'Books@update' , 'as'          => 'books.update'
 ]);
 

@@ -7,7 +7,7 @@ class FlashMessage {
 
     constructor(typeMesage , contentMessage , redirect = null ) {
 
-        let headerMessage = typeMesage == "success" ? "Sucesso" : "Erro";
+        let headerMessage = typeMesage == "success" ? "Success" : "Error";
         // start upload
         this.createMessage(typeMesage , contentMessage , redirect , headerMessage);
 
@@ -23,13 +23,8 @@ class FlashMessage {
                 title: headerMessage,
                 text: contentMessage,
                 type: typeMesage,
-                confirmButtonText: 'OK'
-            }).then(function () {
-                // redirect if is not null
-                if(redirect != null){
-                    window.location = redirect
-                }
-
+                confirmButtonText: 'OK' ,
+                allowOutsideClick: true,
             })
 
         }, 0.800);

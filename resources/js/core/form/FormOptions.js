@@ -12,7 +12,7 @@ class FormOptions {
         // PUSH INSIDE AN ARRAY , THEN AFTER I WILL CHECK IF THIS ITEM EXISTS
         for(let field in data){
 
-            this[field] =  [];
+            //this[field] =  [];
             this.formOptItems.push(field);
         }
 
@@ -155,7 +155,6 @@ class FormOptions {
         let objValeu = [];
         for(let obj in value)
         {
-
             objValeu.push({ 'id' : obj , 'title': value[obj] });
 
         }

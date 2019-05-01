@@ -61620,6 +61620,7 @@ function () {
       var list = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
 
       if (list) {
+        this.errors = [list];
         this.errors[list] = errors;
         return;
       }
@@ -61740,7 +61741,7 @@ function () {
 
     _classCallCheck(this, FlashMessage);
 
-    var headerMessage = typeMesage == "success" ? "Sucesso" : "Erro"; // start upload
+    var headerMessage = typeMesage == "success" ? "Success" : "Error"; // start upload
 
     this.createMessage(typeMesage, contentMessage, redirect, headerMessage);
   }
@@ -61754,12 +61755,8 @@ function () {
           title: headerMessage,
           text: contentMessage,
           type: typeMesage,
-          confirmButtonText: 'OK'
-        }).then(function () {
-          // redirect if is not null
-          if (redirect != null) {
-            window.location = redirect;
-          }
+          confirmButtonText: 'OK',
+          allowOutsideClick: true
         });
       }, 0.800);
     }
@@ -61802,6 +61799,7 @@ function () {
       this[field] = data[field];
     }
 
+    this["index"] = "";
     this.processingForm = false;
   }
 
@@ -62339,7 +62337,7 @@ function () {
     this.formOptItems = []; // PUSH INSIDE AN ARRAY , THEN AFTER I WILL CHECK IF THIS ITEM EXISTS
 
     for (var field in data) {
-      this[field] = [];
+      //this[field] =  [];
       this.formOptItems.push(field);
     }
   }
@@ -62611,6 +62609,17 @@ __webpack_require__.r(__webpack_exports__);
 var AllPagesMethods = {
   data: {
     loadingPage: false
+  },
+  methods: {
+    optionSelected: function optionSelected(idSelected, options) {
+      var titleSelected = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'title';
+
+      for (var prop in options) {
+        if (options[prop]['id'] == idSelected) {
+          return options[prop][titleSelected];
+        }
+      }
+    }
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = (AllPagesMethods);
@@ -62633,6 +62642,7 @@ var BookListPage = {
       var list = '';
 
       for (var index in data) {
+        // let category_name =  this.optionSelected(data[index]['id'] , this.formOptions.category);
         var category_name = data[index]['title']; // FIRST RECORD
 
         if (list == '') {
@@ -62753,11 +62763,9 @@ var CrudDisplay = {
       offset: 3
     }),
     paginationNumbers: [],
-    formErrors: {},
     selectedItems: [],
     submitSelectedItems: [],
     deletable: true,
-    errors: new _core_Errors__WEBPACK_IMPORTED_MODULE_1__["default"](),
     isLoaded: {
       'forms': false,
       'page': false
@@ -62766,6 +62774,7 @@ var CrudDisplay = {
   mounted: function mounted() {
     var _this = this;
 
+    // IF SHOW MESSAGE IS TRUE
     new _core_form_LoadForm__WEBPACK_IMPORTED_MODULE_5__["default"](this.pageInfo.loadDisplayFormOptionUrl, 'formOptionDisplayLoaded'); // LOAD FORMS BUS
 
     _event_bus__WEBPACK_IMPORTED_MODULE_3__["default"].$on('formOptionDisplayLoaded', function (data) {
@@ -62796,32 +62805,34 @@ var CrudDisplay = {
       new _core_form_LoadForm__WEBPACK_IMPORTED_MODULE_5__["default"](this.pageInfo.loadDisplayUrl + urlToSearch, 'pageLoaded');
       this.modal.set('filter', false);
     },
-    //VIEW
-    viewItem: function viewItem(item) {
-      var index = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.displayItems.indexOf(item);
-      this.forms.setFillItem(item, index);
-      this.modal.set('view', true);
-    },
-    // STORE
-    storeItem: function storeItem() {
-      var pageForm = this.selectedFormList.data();
-      return new _core_StoreItem__WEBPACK_IMPORTED_MODULE_7__["default"](this.pageInfo.storeItem, pageForm, 'formSuccess', 'selectedFormList');
-    },
+
+    /* //VIEW
+     viewItem(item ,index = this.displayItems.indexOf(item)){
+         this.forms.setFillItem(item , index );
+         this.modal.set('view', true);
+     },*/
     // CREATE
     createItem: function createItem() {
       this.selectedFormList.reset();
       this.modal.set('create', true);
     },
+    // STORE
+    storeItem: function storeItem() {
+      var pageForm = this.selectedFormList.data();
+      return new _core_StoreItem__WEBPACK_IMPORTED_MODULE_7__["default"](this.pageInfo.storeItem, pageForm, 'createdItem', 'selectedFormList');
+    },
     // EDIT
     editItem: function editItem(item) {
       var index = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.displayItems.indexOf(item);
-      this.forms.setFillItem(item, index);
+      this.selectedFormList.setFillItem(item, index); // SET THE INDEX
+
+      this.selectedFormList.index = index;
       this.modal.set('edit', true);
     },
     // UPDATE
     updateItem: function updateItem() {
-      var data = this.forms.data();
-      return new _core_StoreItem__WEBPACK_IMPORTED_MODULE_7__["default"](this.pageInfo.pageUrl + '/update-item', data, 'updateItem');
+      var pageForm = this.selectedFormList.data();
+      return new _core_StoreItem__WEBPACK_IMPORTED_MODULE_7__["default"](this.pageInfo.updateItem + '/' + pageForm.id, pageForm, 'updatedItem', 'selectedFormList');
     },
     // EDIT LINK
     editLink: function editLink(id) {
@@ -62889,9 +62900,7 @@ var CrudDisplay = {
     destroyItem: function destroyItem(item) {// return  new DestroyItem( this.pageInfo.pageUrl + '/delete' , item );
     },
     setNewValuesDisplay: function setNewValuesDisplay(value) {
-      for (var prop in value) {
-        this.displayItems.unshift(value[prop]);
-      }
+      this.displayItems.unshift(value);
     },
     separetaItemsValue: function separetaItemsValue(value, nameField) {
       var allItemsValue = '';
@@ -62954,12 +62963,6 @@ var CrudDisplay = {
   created: function created() {
     var _this2 = this;
 
-    /*
-            EventBus.$on('formDataLoaded' , (item) => {
-    
-    
-                this.formOptions.setFillItem(item);
-            });*/
     _event_bus__WEBPACK_IMPORTED_MODULE_3__["default"].$on('setPaginationNumbers', function (val) {
       _this2.paginationNumbers = val;
     });
@@ -62977,16 +62980,22 @@ var CrudDisplay = {
 
       _this2.loadingPage = false;
     });
-    _event_bus__WEBPACK_IMPORTED_MODULE_3__["default"].$on('createItem', function (item) {
-      // hide modal
+    _event_bus__WEBPACK_IMPORTED_MODULE_3__["default"].$on('createdItem', function (item) {
+      console.log(item); // hide modal
+
       _this2.modal.set('create', false); // get all fields dinamic from request
 
 
-      _this2.setNewValuesDisplay(item);
-      /* this.pagination.changePageStatus('add' , 1); */
+      _this2.setNewValuesDisplay(item.new_record); // IF HAS ERROR , SHOW THE ERROR MESSAGE
 
 
-      new _core_FlashMessage__WEBPACK_IMPORTED_MODULE_2__["default"]('success', 'Alteração Realizada com Sucesso');
+      if (item.success == false) {
+        new _core_FlashMessage__WEBPACK_IMPORTED_MODULE_2__["default"]('error', item.message);
+        return;
+      } // IF SHOW MESSAGE IS TRUE
+
+
+      new _core_FlashMessage__WEBPACK_IMPORTED_MODULE_2__["default"]('success', item.message);
     });
     _event_bus__WEBPACK_IMPORTED_MODULE_3__["default"].$on('statusModal', function (item) {
       _this2[item.modal] = item.status;
@@ -63002,12 +63011,11 @@ var CrudDisplay = {
         new _core_LoadPage__WEBPACK_IMPORTED_MODULE_4__["default"](urlFilters);
       }, 1000);
     });
-    _event_bus__WEBPACK_IMPORTED_MODULE_3__["default"].$on('updateItem', function (data) {
-      // set new value item
+    _event_bus__WEBPACK_IMPORTED_MODULE_3__["default"].$on('updatedItem', function (data) {
+      var newRecord = data['new_record'];
 
-      /* this.setNewItemDisplay(data); */
-      for (var prop in data) {
-        _this2.displayItems[data.index][prop] = data[prop];
+      for (var prop in newRecord) {
+        _this2.displayItems[newRecord.index][prop] = newRecord[prop];
       } // hide modal
 
 
@@ -63038,9 +63046,6 @@ var CrudDisplay = {
       _this2.submitSelectedItems = []; // hide modal
 
       _this2.modal.set('delete', false);
-    });
-    _event_bus__WEBPACK_IMPORTED_MODULE_3__["default"].$on('formError', function (data) {
-      _this2.errors.record(data);
     });
   }
 };
@@ -63074,8 +63079,12 @@ var FormError = {
     _event_bus__WEBPACK_IMPORTED_MODULE_0__["default"].$on('formError', function (data) {
       console.log(data);
       _this[data.form_list]['processingForm'] = false;
+      console.log(data.error_list.errors);
 
       _this.errors.record(data.error_list.errors, data.form_list);
+
+      console.log("foiiiii");
+      console.log(_this.errors);
     });
   }
 };

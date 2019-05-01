@@ -11,6 +11,8 @@ class FormDisplay {
             this[field] = data[field];
         }
 
+        this["index"] = "";
+
         this.processingForm = false;
 
     }

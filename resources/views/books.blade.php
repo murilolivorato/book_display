@@ -17,7 +17,7 @@
                     <div class="form-group">
                         <label for="title">Category</label>
                         <select-box-many v-model="selectedFormList['category_id']"  :selected="selectedFormList.get('category_id')"  :options="formOptions.get('category')"   :emptyheader="'Category'"   ></select-box-many>
-                        <span class="error-msg" v-if="errors.has('selectedFormList.category')" v-text="errors.get('selectedFormList.category')"></span>
+                        <span class="error-msg" v-if="errors.has('selectedFormList.category_id')" v-text="errors.get('selectedFormList.category_id')"></span>
                     </div>
 
 
@@ -69,11 +69,40 @@
             <form method="POST" action="" @submit.prevent="updateItem()">
                 <div class="modal-body">
 
-                    <!-- form Group -->
+                    <!-- CATEGORY-->
+                    <div class="form-group">
+                        <label for="title">Category</label>
+                        <select-box-many v-model="selectedFormList['category_id']"  :selected="selectedFormList.get('category_id')"  :options="formOptions.get('category')"   :emptyheader="'Category'"   ></select-box-many>
+                        <span class="error-msg" v-if="errors.has('selectedFormList.category_id')" v-text="errors.get('selectedFormList.category_id')"></span>
+                    </div>
+
+
+                    <!-- TITLE-->
                     <div class="form-group">
                         <label for="title">Title</label>
                         <input class="form-control border-input" placeholder="Title" v-model="selectedFormList.title"  type="text"  >
-                        <span class="error-msg" v-if="errors.has('title')" v-text="errors.get('title')"></span>
+                        <span class="error-msg" v-if="errors.has('selectedFormList.title')" v-text="errors.get('selectedFormList.title')"></span>
+                    </div>
+
+                    <!-- AUTHOR-->
+                    <div class="form-group">
+                        <label for="title">Author</label>
+                        <input class="form-control border-input" placeholder="Author" v-model="selectedFormList.author"  type="text"  >
+                        <span class="error-msg" v-if="errors.has('selectedFormList.author')" v-text="errors.get('selectedFormList.title')"></span>
+                    </div>
+
+                    <!-- ISBN-->
+                    <div class="form-group">
+                        <label for="title">Isbn</label>
+                        <input class="form-control border-input" placeholder="Isbn" v-model="selectedFormList.isbn"  type="text"  >
+                        <span class="error-msg" v-if="errors.has('selectedFormList.isbn')" v-text="errors.get('selectedFormList.title')"></span>
+                    </div>
+
+                    <!-- PRICE-->
+                    <div class="form-group">
+                        <label for="title">Price</label>
+                        <masked-input   v-model="selectedFormList.price"  placehold="Price" mask-type="price" ></masked-input>
+                        <span class="error-msg" v-if="errors.has('selectedFormList.price')" v-text="errors.get('selectedFormList.price')"></span>
                     </div>
 
                 </div>
@@ -135,7 +164,7 @@
 
 
                             <!-- content -->
-                    <div class="content table-responsive table-full-width" id="display"   >
+                    <div class="content  table-full-width"  >
                         <table class="table  table-striped">
                             <thead>
                             <th>ID</th>
@@ -155,8 +184,8 @@
 
                             <tbody class="posts">
 
-
                             <tr class="display_item post"  v-for="(item , index )  in displayItems"   >
+
 
                                 <td></td>
                                 <td> <label class="checkbox checkbox-blue" for="check_option">
@@ -168,12 +197,14 @@
 
                                 <td class="row_title" >
                                     <p>
+
                                         Title : @{{ item.title }} <br />
                                         Author : @{{ item.author }} <br />
                                         ISBN : @{{ item.isbn }} <br />
                                         Price: £ @{{ item.price }} <br />
                                         Categoria :  @{{ category_list(item.category) }}
                                     </p>
+
                                 </td>
 
 
@@ -211,16 +242,13 @@
 
 
 
-                        <!-- row -->
-                        <div class="fixed-table-pagination">
-                            <div class="text-center">
-                                    <p v-if="!paginationNumbers" class="paginationRegister">Records</p>
-                                    <p v-if="paginationNumbers" class="paginationRegister"><span class="sp2"> @{{ pagination.pagination.total }} </span> Records</p>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12 text-center">
 
                                     <!-- pagination -->
-                                    <nav class="pagination is-rounded is-centered" role="navigation" aria-label="pagination" aria-label="pagination" >
 
-                                        <ul class="pagination">
+                                        <ul class="pagination is-rounded ">
                                             <li class="first_pg" v-if="pagination.get('current_page') > 1"  >
                                                     <a href="#" aria-label="Previous" class="pagination-previous" @click.prevent="pagination.prevPage()">
                                                         <span aria-hidden="true">«</span>
@@ -241,10 +269,10 @@
                                         </ul>
 
 
-                                    </nav>
                                     <!-- end pagination  -->
-
+                                </div>
                             </div>
+
                         </div>
                         <!-- end row -->
 
