@@ -22,6 +22,7 @@ Route::get('books' , [
     'uses'        => 'Books@index' , 'as'          => 'books'
 ]);
 
+
 Route::get('books/load-display' , [
     'uses'        => 'Books@load_display'
 ]);
@@ -42,4 +43,6 @@ Route::post('books/destroy' , [
     'uses'        => 'Books@destroy' , 'as'          => 'books.destroy'
 ]);
 
-
+Route::get('books/test' , [
+    'uses'        => 'Books@test' , 'as'          => 'books'
+]);
