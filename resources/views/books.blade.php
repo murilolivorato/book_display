@@ -223,7 +223,7 @@
                             <th>ID</th>
                             <th>
                                 <label class="checkbox checkbox-blue" >
-                                    <input name="chkSelectAll" type="checkbox" id="chkSelectAll" v-model="toggleAll" @click="selectAll" >
+                                    <label class="checkbox"><input type="checkbox"   v-model="toggleAllData"  @click="selectAll()" ></label>
                                 </label>
                             </th>
                             <th>Book Information</th>

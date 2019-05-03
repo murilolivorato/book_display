@@ -7,13 +7,11 @@ const SelectBoxMany = {
                                             
                             <div class="wrapper-demo">
                                     <div id="dd" :class="styleWapper"  >
-                                                {{ selectedData }}
+                                              
                                             <a href="#" id="header_drop"    @click.stop.prevent="clickHeader()" >
                                                           {{ headerMessage }} 
                                              </a>
                                   
-
-                                
                                             <ul class="dropdown_menu">
                                                         <li><a href="#" >Select an Option </a></li>
                                                         <li class="row"  v-for="option in listValues" >

@@ -61370,7 +61370,7 @@ __webpack_require__.r(__webpack_exports__);
  */
 
 var SelectBoxMany = {
-  template: "<section class=\"dropdow_box\"  v-click-outside=\"outside\" @click=\"inside\" >\n                                            \n                            <div class=\"wrapper-demo\">\n                                    <div id=\"dd\" :class=\"styleWapper\"  >\n                                                {{ selectedData }}\n                                            <a href=\"#\" id=\"header_drop\"    @click.stop.prevent=\"clickHeader()\" >\n                                                          {{ headerMessage }} \n                                             </a>\n                                  \n\n                                \n                                            <ul class=\"dropdown_menu\">\n                                                        <li><a href=\"#\" >Select an Option </a></li>\n                                                        <li class=\"row\"  v-for=\"option in listValues\" >\n                                                                <label class=\"checkbox\"><input type=\"checkbox\"  :value=\"option.id\" v-model=\"selectedData\"><span>{{ option.title }}</span></label>\n                                                         </li>\n                                                  </ul>\n                                  \n                            </div>\n\t\t\t\t        \u200B</div>\n                </section>\n\n\n\t\t\t",
+  template: "<section class=\"dropdow_box\"  v-click-outside=\"outside\" @click=\"inside\" >\n                                            \n                            <div class=\"wrapper-demo\">\n                                    <div id=\"dd\" :class=\"styleWapper\"  >\n                                              \n                                            <a href=\"#\" id=\"header_drop\"    @click.stop.prevent=\"clickHeader()\" >\n                                                          {{ headerMessage }} \n                                             </a>\n                                  \n                                            <ul class=\"dropdown_menu\">\n                                                        <li><a href=\"#\" >Select an Option </a></li>\n                                                        <li class=\"row\"  v-for=\"option in listValues\" >\n                                                                <label class=\"checkbox\"><input type=\"checkbox\"  :value=\"option.id\" v-model=\"selectedData\"><span>{{ option.title }}</span></label>\n                                                         </li>\n                                                  </ul>\n                                  \n                            </div>\n\t\t\t\t        \u200B</div>\n                </section>\n\n\n\t\t\t",
   props: {
     options: {
       type: Array
@@ -62755,7 +62755,8 @@ var CrudDisplay = {
       'forms': false,
       'page': false
     },
-    componentIsLoaded: false
+    componentIsLoaded: false,
+    toggleAllData: false
   },
   mounted: function mounted() {
     var _this = this;
@@ -62775,6 +62776,14 @@ var CrudDisplay = {
       if (val == true) {
         this.startLoadingPages();
       }
+    },
+    'selectedItems': function selectedItems(val) {
+      this.toggleAllData = this.toggleAll;
+    }
+  },
+  computed: {
+    toggleAll: function toggleAll() {
+      return this.selectedItems.length == this.displayItems.length;
     }
   },
   methods: {
@@ -62905,17 +62914,19 @@ var CrudDisplay = {
       }
     },
     selectAll: function selectAll() {
-      var selectall = this.toggleAll;
+      var selectedValue = this.toggleAll;
 
-      if (!selectall) {
+      if (!selectedValue) {
         this.selectedItems = [];
 
         for (var prop in this.displayItems) {
           this.selectedItems.push(prop);
         }
-      } else {
-        this.selectedItems = [];
+
+        return;
       }
+
+      this.selectedItems = [];
     },
     countAggregate: function countAggregate(value) {
       if (typeof value != "undefined" && value != null && value.length > 0) {
@@ -62927,9 +62938,6 @@ var CrudDisplay = {
     makeThumbExtension: function makeThumbExtension(image) {
       var thumbImage = image.split('.');
       return thumbImage[0] + '_thumb.' + thumbImage[1];
-    },
-    toggleAll: function toggleAll() {
-      return this.selectedItems.length == this.displayItems.length;
     },
     searchUrl: function searchUrl() {
       var list = this.filterList.data();
@@ -62947,7 +62955,6 @@ var CrudDisplay = {
       return urlToSearch;
     }
   },
-  computed: {},
   created: function created() {
     var _this2 = this;
 

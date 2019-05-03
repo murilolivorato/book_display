@@ -27,9 +27,8 @@ const CrudDisplay = {
         submitSelectedItems:[] ,
         deletable:true,
         isLoaded:{'forms': false , 'page': false} ,
-        componentIsLoaded:false
-
-
+        componentIsLoaded:false ,
+        toggleAllData:false
     } ,
     mounted: function () {
         // IF SHOW MESSAGE IS TRUE
@@ -51,8 +50,18 @@ const CrudDisplay = {
             if(val == true){
                 this.startLoadingPages();
             }
+        } ,
+        'selectedItems': function (val) {
+            this.toggleAllData = this.toggleAll;
         }
     } ,
+
+    computed: {
+        toggleAll() {
+            return this.selectedItems.length == this.displayItems.length;
+        } ,
+    } ,
+
 
 
     methods: {
@@ -211,21 +220,23 @@ const CrudDisplay = {
         } ,
 
         selectAll(){
-            var selectall = this.toggleAll;
+            let selectedValue= this.toggleAll;
 
-            if (!selectall) {
+
+            if (!selectedValue) {
 
                 this.selectedItems = [];
                 for (var prop in this.displayItems) {
 
                     this.selectedItems.push(prop);
                 }
-            }else{
 
-                this.selectedItems = [];
+                return;
             }
 
 
+
+            this.selectedItems = [];
 
         } ,
 
@@ -243,9 +254,7 @@ const CrudDisplay = {
             return  thumbImage[0] + '_thumb.' + thumbImage[1];
 
         } ,
-        toggleAll() {
-            return this.selectedItems.length == this.displayItems.length
-        } ,
+
         searchUrl(){
             let list        = this.filterList.data();
             let urlToSearch = "";
@@ -272,9 +281,7 @@ const CrudDisplay = {
 
 
     } ,
-    computed: {
 
-    } ,
 
     created(){
 
