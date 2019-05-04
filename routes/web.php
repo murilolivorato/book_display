@@ -43,6 +43,3 @@ Route::post('books/destroy' , [
     'uses'        => 'Books@destroy' , 'as'          => 'books.destroy'
 ]);
 
-Route::get('books/test' , [
-    'uses'        => 'Books@test' , 'as'          => 'books'
-]);

@@ -6,6 +6,30 @@
 
     <div class="container-fluid display-page" id="display-post-category" >
 
+        <!-- @view Modal--->
+        <modal  v-if="modal.get('view')" @close="modal.set('view', false)" >
+            <template slot="header" ><h4>View Book</h4></template>
+            <template slot="body" >
+                <form method="POST" action="" @submit.prevent="storeItem()">
+                    <div class="modal-body">
+                        <p>
+                            Category : @{{ category_list( selectedFormList.get('category_id')) }} <br />
+                            Title : @{{ selectedFormList.get('title')  }} <br />
+                            Author : @{{ selectedFormList.get('author')  }} <br />
+                            ISBN : @{{ selectedFormList.get('isbn')  }} <br />
+                            Price : @{{ selectedFormList.get('price')  }} <br />
+                        </p>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="lightOne" @click="modal.set('view', false)" >Close</button>
+                    </div>
+
+                </form>
+            </template>
+        </modal>
+
+
         <!-- @create Modal--->
         <modal  v-if="modal.get('create')" @close="modal.set('create', false)" >
         <template slot="header" ><h4>Create Book</h4></template>
@@ -32,14 +56,14 @@
                     <div class="form-group">
                         <label for="title">Author</label>
                         <input class="form-control border-input" placeholder="Author" v-model="selectedFormList.author"  type="text"  >
-                        <span class="error-msg" v-if="errors.has('selectedFormList.author')" v-text="errors.get('selectedFormList.title')"></span>
+                        <span class="error-msg" v-if="errors.has('selectedFormList.author')" v-text="errors.get('selectedFormList.author')"></span>
                     </div>
 
                     <!-- ISBN-->
                     <div class="form-group">
                         <label for="title">Isbn</label>
                         <input class="form-control border-input" placeholder="Isbn" v-model="selectedFormList.isbn"  type="text"  >
-                        <span class="error-msg" v-if="errors.has('selectedFormList.isbn')" v-text="errors.get('selectedFormList.title')"></span>
+                        <span class="error-msg" v-if="errors.has('selectedFormList.isbn')" v-text="errors.get('selectedFormList.isbn')"></span>
                     </div>
 
                     <!-- PRICE-->
@@ -52,8 +76,8 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" @click="modal.set('create', false)" >Close</button>
-                    <button type="submit" class="btn btn-success">Create</button>
+                    <button type="button" class="lightOne"  @click="modal.set('create', false)" >Close</button>
+                    <submit-btn :processloading="selectedFormList.get('processingForm')" :textbutton="'Create'"  :stylebutton="'submit_1 btn_side_left'"  ></submit-btn>
                 </div>
 
             </form>
@@ -88,14 +112,14 @@
                     <div class="form-group">
                         <label for="title">Author</label>
                         <input class="form-control border-input" placeholder="Author" v-model="selectedFormList.author"  type="text"  >
-                        <span class="error-msg" v-if="errors.has('selectedFormList.author')" v-text="errors.get('selectedFormList.title')"></span>
+                        <span class="error-msg" v-if="errors.has('selectedFormList.author')" v-text="errors.get('selectedFormList.author')"></span>
                     </div>
 
                     <!-- ISBN-->
                     <div class="form-group">
                         <label for="title">Isbn</label>
                         <input class="form-control border-input" placeholder="Isbn" v-model="selectedFormList.isbn"  type="text"  >
-                        <span class="error-msg" v-if="errors.has('selectedFormList.isbn')" v-text="errors.get('selectedFormList.title')"></span>
+                        <span class="error-msg" v-if="errors.has('selectedFormList.isbn')" v-text="errors.get('selectedFormList.isbn')"></span>
                     </div>
 
                     <!-- PRICE-->
@@ -107,8 +131,8 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" @click="modal.set('edit', false)" >Close</button>
-                    <button type="submit" class="btn btn-success">Edit</button>
+                    <button type="button" class="lightOne" @click="modal.set('edit', false)" >Close</button>
+                    <submit-btn :processloading="selectedFormList.get('processingForm')" :textbutton="'Edit'"  :stylebutton="'submit_1 btn_side_left'"  ></submit-btn>
                 </div>
             </form>
         </template>
@@ -122,11 +146,12 @@
 
             <form method="POST" action="" @submit.prevent="destroyItem( submitSelectedItems )">
                 <div class="modal-body">
-                    <p>Are you Sure that you want to delete this  ?</p>
+                    <p v-if="submitSelectedItems.length">Are you Sure that you want to delete this  ?</p>
+                    <p v-if="! submitSelectedItems.length">Select something to delete</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" @click="modal.set('delete', false)" >Close</button>
-                    <button type="submit" class="btn btn-success">Delete</button>
+                    <button type="button" class="lightOne"  @click="modal.set('delete', false)" >Close</button>
+                    <submit-btn :processloading="selectedFormList.get('processingForm')" :textbutton="'Delete'"  :stylebutton="'submit_1 btn_side_left'"  v-if="submitSelectedItems.length" ></submit-btn>
                 </div>
             </form>
         </template>
@@ -177,7 +202,7 @@
 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" @click="modal.set('search', false)" >Close</button>
+                        <button type="button" class="lightOne" @click="modal.set('search', false)" >Close</button>
                         <button type="submit" class="btn btn-success">Search</button>
                     </div>
                 </form>
@@ -266,14 +291,21 @@
                                     <ul class="list_table_action">
 
 
-                                        <!-- edit  Button -->
+                                        <!-- VIEW  BUTTON -->
+                                        <li class="view">
+                                            <a class="hint--top" aria-label="View"  href="#"  @click.prevent="viewItem(item)" >
+                                                <i class="fa"></i>
+                                            </a>
+                                        </li>
+
+                                        <!-- EDIT  BUTTON -->
                                         <li class="edit">
                                             <a class="hint--top" aria-label="Edit"  href="#"  @click.prevent="editItem(item)" >
                                                 <i class="fa"></i>
                                             </a>
                                         </li>
 
-                                        <!-- edit  Button -->
+                                        <!-- DELETE  BUTTON -->
                                         <li class="delete">
                                             <a class="hint--top" aria-label="Delete"  href="#"  @click.prevent="deleteItem(item)" >
                                                 <i class="fa"></i>

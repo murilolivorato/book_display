@@ -19,12 +19,9 @@ const FormError = {
 
 
             this[data.form_list]['processingForm'] = false;
-            console.log(data.error_list.errors);
 
             this.errors.record(data.error_list.errors , data.form_list);
 
-            console.log("foiiiii");
-            console.log(this.errors);
 
         });
 

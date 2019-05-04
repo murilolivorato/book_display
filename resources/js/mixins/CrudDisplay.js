@@ -78,42 +78,65 @@ const CrudDisplay = {
         searchDisplay(){
             let urlToSearch = this.searchUrl();
 
-
             new LoadForm(this.pageInfo.loadDisplayUrl + urlToSearch , 'pageLoaded' );
             this.modal.set('filter', false);
 
-
         } ,
-       /* //VIEW
+
+       //VIEW
         viewItem(item ,index = this.displayItems.indexOf(item)){
-            this.forms.setFillItem(item , index );
+            // SET ALL INPUT
+            this.selectedFormList.setFillItem(item , index );
+
+            // OPEN VIEW MODAL
             this.modal.set('view', true);
-        },*/
+        },
 
         // CREATE
         createItem() {
+            // RESET FORM
             this.selectedFormList.reset();
+
+            // RESET ERRORS IF HAS
+            this.errors.reset();
+
+            // OPEN MODAL BOX
             this.modal.set('create', true);
         } ,
 
         // STORE
         storeItem() {
+            // START LOADING
+            this.selectedFormList.processingForm = true;
+            // PAGE DATA
             let pageForm =  this.selectedFormList.data();
+            // STORE DATA
             return  new StoreItem(  this.pageInfo.storeItem , pageForm , 'createdItem' , 'selectedFormList' );
         } ,
 
         // EDIT
         editItem(item ,index = this.displayItems.indexOf(item)){
+            // SET ALL INPUT
             this.selectedFormList.setFillItem(item , index );
+
+            // RESET ERRORS IF HAS
+            this.errors.reset();
+
             // SET THE INDEX
             this.selectedFormList.index = index;
+
             this.componentIsLoaded = true;
+            // OPEN EDIT MODAL
             this.modal.set('edit', true);
         } ,
 
         // UPDATE
         updateItem() {
+            // START LOADING
+            this.selectedFormList.processingForm = true;
+            // PAGE DATA
             let pageForm  =  this.selectedFormList.data();
+            // UPDATE DATA
             return  new StoreItem(  this.pageInfo.updateItem + '/' + pageForm.id , pageForm , 'updatedItem' , 'selectedFormList' );
         } ,
 
@@ -150,6 +173,7 @@ const CrudDisplay = {
 
         } ,
 
+/*
         // VIEW LINK
         viewLink(id , namePage = null){
             let pg = "view";
@@ -159,6 +183,7 @@ const CrudDisplay = {
 
             return this.pageInfo.pageUrl + '/' +  pg  +'/' + id;
         } ,
+*/
 
 
         // DELETE
@@ -172,6 +197,17 @@ const CrudDisplay = {
         // DELETE MANY
         deleteManyItems(){
 
+            let deleteItemsInfo = this.setManyDelete();
+
+            // GET ALL ITEMS SELECTED
+            this.submitSelectedItems = deleteItemsInfo;
+            // OPEN DELETE MODAL
+            this.modal.set('delete', true);
+
+
+        } ,
+
+        setManyDelete(){
             let deleteItemsInfo = [];
 
             for (var prop in this.selectedItems) {
@@ -182,13 +218,15 @@ const CrudDisplay = {
 
             }
 
-            this.submitSelectedItems = deleteItemsInfo;
-            this.modal.set('delete', true);
-
+            return deleteItemsInfo;
         } ,
 
         // DESTROY
         destroyItem(itemsToDelete){
+            // START LOADING
+            this.selectedFormList.processingForm = true;
+
+            // DESTROY
             return  new StoreItem(  this.pageInfo.destroyItem , {'delete' : itemsToDelete } , 'deletedItem' , 'selectedFormList' );
         } ,
         setNewValuesDisplay(value){
@@ -271,8 +309,6 @@ const CrudDisplay = {
                     count ++;
                 }
 
-
-
             }
 
           return urlToSearch;
@@ -285,13 +321,14 @@ const CrudDisplay = {
 
     created(){
 
-
+        // SET THE PAGINATION NUMBERS
         EventBus.$on('setPaginationNumbers' , (val) => {
 
             this.paginationNumbers = val;
 
         });
 
+        // START LOADING THE PAGE
         EventBus.$on('pageLoaded',  (item) => {
 
             // DISPLAY ITEMS
@@ -312,37 +349,21 @@ const CrudDisplay = {
 
         });
 
-        EventBus.$on('createdItem' ,  (item) => {
-
-            // hide modal
-            this.modal.set('create', false);
-
-            // get all fields dinamic from request
-            this.setNewValuesDisplay(item.new_record);
-
-            // IF HAS ERROR , SHOW THE ERROR MESSAGE
-            if(item.success == false){
-                new FlashMessage('error', item.message);
-                return;
-            }
-
-            // IF SHOW MESSAGE IS TRUE
-            new FlashMessage('success', item.message  );
-
-        });
-
-
         EventBus.$on('statusModal' , (item) => {
             this[item.modal] = item.status;
         });
 
 
 
-
+        // UPDATE THE PAGE AFTER PAGINATE
         EventBus.$on('updatePage' , (page) => {
+
+            // STOP LOADING
+            this.selectedFormList.processingForm = false;
 
             // STOP LOADING PAGE
             this.loadingPage = true;
+
             window.scrollTo(0, 0);
 
             // filters
@@ -358,7 +379,39 @@ const CrudDisplay = {
         });
 
 
+
+        // IT IS STORED , SO UPDATE THE DATA HERE
+        EventBus.$on('createdItem' ,  (item) => {
+
+            // STOP LOADING
+            this.selectedFormList.processingForm = false;
+
+            // hide modal
+            this.modal.set('create', false);
+
+            console.log(item.new_record);
+            // get all fields dinamic from request
+            this.setNewValuesDisplay(item.new_record);
+
+            // IF HAS ERROR , SHOW THE ERROR MESSAGE
+            if(item.success == false){
+                new FlashMessage('error', item.message);
+                return;
+            }
+
+            // IF SHOW MESSAGE IS TRUE
+            new FlashMessage('success', item.message  );
+
+        });
+
+
+
+
+        // IT IS UPDATED , SO UPDATE THE DATA HERE
         EventBus.$on('updatedItem' , (data) => {
+
+            // STOP LOADING
+            this.selectedFormList.processingForm = false;
 
             const newRecord = data['new_record'];
 
@@ -372,7 +425,11 @@ const CrudDisplay = {
         });
 
 
+        // IT IS DELETED , SO UPDATE THE DATA HERE
         EventBus.$on('deletedItem' , (data) => {
+
+            // STOP LOADING
+            this.selectedFormList.processingForm = false;
 
             // if has error
             if(data.success == false){

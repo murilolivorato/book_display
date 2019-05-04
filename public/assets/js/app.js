@@ -62800,34 +62800,52 @@ var CrudDisplay = {
       new _core_form_LoadForm__WEBPACK_IMPORTED_MODULE_5__["default"](this.pageInfo.loadDisplayUrl + urlToSearch, 'pageLoaded');
       this.modal.set('filter', false);
     },
+    //VIEW
+    viewItem: function viewItem(item) {
+      var index = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.displayItems.indexOf(item);
+      // SET ALL INPUT
+      this.selectedFormList.setFillItem(item, index); // OPEN VIEW MODAL
 
-    /* //VIEW
-     viewItem(item ,index = this.displayItems.indexOf(item)){
-         this.forms.setFillItem(item , index );
-         this.modal.set('view', true);
-     },*/
+      this.modal.set('view', true);
+    },
     // CREATE
     createItem: function createItem() {
-      this.selectedFormList.reset();
+      // RESET FORM
+      this.selectedFormList.reset(); // RESET ERRORS IF HAS
+
+      this.errors.reset(); // OPEN MODAL BOX
+
       this.modal.set('create', true);
     },
     // STORE
     storeItem: function storeItem() {
-      var pageForm = this.selectedFormList.data();
+      // START LOADING
+      this.selectedFormList.processingForm = true; // PAGE DATA
+
+      var pageForm = this.selectedFormList.data(); // STORE DATA
+
       return new _core_StoreItem__WEBPACK_IMPORTED_MODULE_7__["default"](this.pageInfo.storeItem, pageForm, 'createdItem', 'selectedFormList');
     },
     // EDIT
     editItem: function editItem(item) {
       var index = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.displayItems.indexOf(item);
-      this.selectedFormList.setFillItem(item, index); // SET THE INDEX
+      // SET ALL INPUT
+      this.selectedFormList.setFillItem(item, index); // RESET ERRORS IF HAS
+
+      this.errors.reset(); // SET THE INDEX
 
       this.selectedFormList.index = index;
-      this.componentIsLoaded = true;
+      this.componentIsLoaded = true; // OPEN EDIT MODAL
+
       this.modal.set('edit', true);
     },
     // UPDATE
     updateItem: function updateItem() {
-      var pageForm = this.selectedFormList.data();
+      // START LOADING
+      this.selectedFormList.processingForm = true; // PAGE DATA
+
+      var pageForm = this.selectedFormList.data(); // UPDATE DATA
+
       return new _core_StoreItem__WEBPACK_IMPORTED_MODULE_7__["default"](this.pageInfo.updateItem + '/' + pageForm.id, pageForm, 'updatedItem', 'selectedFormList');
     },
     // EDIT LINK
@@ -62855,17 +62873,18 @@ var CrudDisplay = {
 
       new _core_form_LoadForm__WEBPACK_IMPORTED_MODULE_5__["default"](this.pageInfo.loadDisplayUrl + this.selectSearch.setUrlFilerString(), 'pageLoaded');
     },
-    // VIEW LINK
-    viewLink: function viewLink(id) {
-      var namePage = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
-      var pg = "view";
 
-      if (namePage !== null) {
-        pg = namePage;
-      }
-
-      return this.pageInfo.pageUrl + '/' + pg + '/' + id;
-    },
+    /*
+            // VIEW LINK
+            viewLink(id , namePage = null){
+                let pg = "view";
+                if(namePage !== null){
+                    pg = namePage;
+                }
+    
+                return this.pageInfo.pageUrl + '/' +  pg  +'/' + id;
+            } ,
+    */
     // DELETE
     deleteItem: function deleteItem(item) {
       var index = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.displayItems.indexOf(item);
@@ -62877,6 +62896,13 @@ var CrudDisplay = {
     },
     // DELETE MANY
     deleteManyItems: function deleteManyItems() {
+      var deleteItemsInfo = this.setManyDelete(); // GET ALL ITEMS SELECTED
+
+      this.submitSelectedItems = deleteItemsInfo; // OPEN DELETE MODAL
+
+      this.modal.set('delete', true);
+    },
+    setManyDelete: function setManyDelete() {
       var deleteItemsInfo = [];
 
       for (var prop in this.selectedItems) {
@@ -62887,11 +62913,13 @@ var CrudDisplay = {
         });
       }
 
-      this.submitSelectedItems = deleteItemsInfo;
-      this.modal.set('delete', true);
+      return deleteItemsInfo;
     },
     // DESTROY
     destroyItem: function destroyItem(itemsToDelete) {
+      // START LOADING
+      this.selectedFormList.processingForm = true; // DESTROY
+
       return new _core_StoreItem__WEBPACK_IMPORTED_MODULE_7__["default"](this.pageInfo.destroyItem, {
         'delete': itemsToDelete
       }, 'deletedItem', 'selectedFormList');
@@ -62958,9 +62986,11 @@ var CrudDisplay = {
   created: function created() {
     var _this2 = this;
 
+    // SET THE PAGINATION NUMBERS
     _event_bus__WEBPACK_IMPORTED_MODULE_3__["default"].$on('setPaginationNumbers', function (val) {
       _this2.paginationNumbers = val;
-    });
+    }); // START LOADING THE PAGE
+
     _event_bus__WEBPACK_IMPORTED_MODULE_3__["default"].$on('pageLoaded', function (item) {
       // DISPLAY ITEMS
       _this2.displayItems = item.data; // PAGINATION NUMBERS
@@ -62975,10 +63005,31 @@ var CrudDisplay = {
 
       _this2.loadingPage = false;
     });
-    _event_bus__WEBPACK_IMPORTED_MODULE_3__["default"].$on('createdItem', function (item) {
-      // hide modal
-      _this2.modal.set('create', false); // get all fields dinamic from request
+    _event_bus__WEBPACK_IMPORTED_MODULE_3__["default"].$on('statusModal', function (item) {
+      _this2[item.modal] = item.status;
+    }); // UPDATE THE PAGE AFTER PAGINATE
 
+    _event_bus__WEBPACK_IMPORTED_MODULE_3__["default"].$on('updatePage', function (page) {
+      // STOP LOADING
+      _this2.selectedFormList.processingForm = false; // STOP LOADING PAGE
+
+      _this2.loadingPage = true;
+      window.scrollTo(0, 0); // filters
+
+      setTimeout(function () {
+        // LOAD NEW PAGE
+        var urlFilters = _this2.pageInfo.loadDisplayUrl + '?page=' + page;
+        new _core_LoadPage__WEBPACK_IMPORTED_MODULE_4__["default"](urlFilters);
+      }, 1000);
+    }); // IT IS STORED , SO UPDATE THE DATA HERE
+
+    _event_bus__WEBPACK_IMPORTED_MODULE_3__["default"].$on('createdItem', function (item) {
+      // STOP LOADING
+      _this2.selectedFormList.processingForm = false; // hide modal
+
+      _this2.modal.set('create', false);
+
+      console.log(item.new_record); // get all fields dinamic from request
 
       _this2.setNewValuesDisplay(item.new_record); // IF HAS ERROR , SHOW THE ERROR MESSAGE
 
@@ -62990,22 +63041,11 @@ var CrudDisplay = {
 
 
       new _core_FlashMessage__WEBPACK_IMPORTED_MODULE_2__["default"]('success', item.message);
-    });
-    _event_bus__WEBPACK_IMPORTED_MODULE_3__["default"].$on('statusModal', function (item) {
-      _this2[item.modal] = item.status;
-    });
-    _event_bus__WEBPACK_IMPORTED_MODULE_3__["default"].$on('updatePage', function (page) {
-      // STOP LOADING PAGE
-      _this2.loadingPage = true;
-      window.scrollTo(0, 0); // filters
+    }); // IT IS UPDATED , SO UPDATE THE DATA HERE
 
-      setTimeout(function () {
-        // LOAD NEW PAGE
-        var urlFilters = _this2.pageInfo.loadDisplayUrl + '?page=' + page;
-        new _core_LoadPage__WEBPACK_IMPORTED_MODULE_4__["default"](urlFilters);
-      }, 1000);
-    });
     _event_bus__WEBPACK_IMPORTED_MODULE_3__["default"].$on('updatedItem', function (data) {
+      // STOP LOADING
+      _this2.selectedFormList.processingForm = false;
       var newRecord = data['new_record'];
 
       for (var prop in newRecord) {
@@ -63014,9 +63054,12 @@ var CrudDisplay = {
 
 
       _this2.modal.set('edit', false);
-    });
+    }); // IT IS DELETED , SO UPDATE THE DATA HERE
+
     _event_bus__WEBPACK_IMPORTED_MODULE_3__["default"].$on('deletedItem', function (data) {
-      // if has error
+      // STOP LOADING
+      _this2.selectedFormList.processingForm = false; // if has error
+
       if (data.success == false) {
         // hide modal
         _this2.modal.set('delete', false);
@@ -63073,12 +63116,8 @@ var FormError = {
     _event_bus__WEBPACK_IMPORTED_MODULE_0__["default"].$on('formError', function (data) {
       console.log(data);
       _this[data.form_list]['processingForm'] = false;
-      console.log(data.error_list.errors);
 
       _this.errors.record(data.error_list.errors, data.form_list);
-
-      console.log("foiiiii");
-      console.log(_this.errors);
     });
   }
 };

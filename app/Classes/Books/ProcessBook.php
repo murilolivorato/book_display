@@ -9,6 +9,7 @@
 namespace App\Classes\Books;
 use App\Classes\Books\Save\SaveBook;
 use App\Classes\Books\Save\SyncBook;
+use App\Classes\Books\Save\GetBookInfo;
 
 class ProcessBook
 {
@@ -36,12 +37,16 @@ class ProcessBook
     // SAVE BOOK
     private function save($books)
     {
+                    // GET INFO RETURN
+       $book = new GetBookInfo(
+                            // SYNC THE CATEGORY
+                        new SyncBook(
+                                // SAVE THE BOOK
+                                new SaveBook($books,
+                                             $this->request
 
-       $book = new SyncBook(
-                        new SaveBook($books,
-                                     $this->request
-
-                        )
+                                )
+              )
         );
 
         $this->result = $book->publish();

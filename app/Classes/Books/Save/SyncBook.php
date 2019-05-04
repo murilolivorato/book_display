@@ -11,10 +11,23 @@ use App\BookCategory;
 
 class SyncBook
 {
+    protected $book;
+    protected $request;
+    protected $action;
+
     public function __construct($book)
     {
         $this->book              = $book->publish();
         $this->request           = $book->request();
+        $this->action            = $book->action();
+    }
+
+    public function request(){
+        return  $this->request;
+    }
+
+    public function action(){
+        return  $this->action;
     }
 
 
@@ -31,16 +44,8 @@ class SyncBook
 
         }
 
-        return [
-               'success'    => true ,
-               'new_record' => [
-                   'index'        => $this->request['index'] ,
-                   'isbn'         => $this->request['isbn'] ,
-                   'author'       => $this->request['author'] ,
-                   'price'        => $this->request['price'] ,
-                   'title'        => $this->request['title'] ,
-                   'category_id'  => $this->request['category_id'] ,
-               ]
-        ];
+
+        return $this->book;
+
     }
 }

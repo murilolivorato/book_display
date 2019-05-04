@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Rules\VerifyTitleExists;
+use App\Rules\VerifyISBNExists;
 
 class BookRequest extends FormRequest
 {
@@ -24,11 +26,11 @@ class BookRequest extends FormRequest
     public function rules()
     {
         return [
-            'title'               => 'required|min:3|max:250' ,
-            'isbn'                => 'required' ,
+            'title'               => [ 'required' , new VerifyTitleExists($this->id) ] ,
+            'isbn'                => [ 'required' , new VerifyISBNExists($this->id) ] ,
             'author'              => 'required' ,
             'price'               => 'required' ,
-            'category_id'         => 'required'
+            'category_id'         => 'required' ,
         ];
     }
 }

@@ -34,11 +34,6 @@ class Books extends Controller
 
     }
 
-     public function test()
-    {
-       dd("test");
-
-    }
 
     /**********************************************************************************
     LOAD DISPLAY LIST
@@ -71,7 +66,7 @@ class Books extends Controller
     /**********************************************************************************
     UPDATE
      ***********************************************************************************/
-    public function update(Request $request , $id)
+    public function update(BookRequest $request , $id)
     {
 
         // BOOK

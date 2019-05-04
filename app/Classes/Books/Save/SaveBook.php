@@ -14,16 +14,24 @@ class SaveBook
 {
     protected $book;
     protected $request;
+    protected $action;
 
 
     public function __construct(Book $book, Request $request )
     {
         $this->book        = $book;
         $this->request     = $request;
+        $this->action      = $this->book->exists ? "isUpdating" : "isCreating";
+
+
     }
 
     public function request(){
         return  $this->request;
+    }
+
+    public function action(){
+        return  $this->action;
     }
 
     public function publish(){
