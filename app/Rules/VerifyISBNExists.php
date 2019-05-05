@@ -48,9 +48,21 @@ class VerifyISBNExists implements Rule
 
     private function validateUpdate($value)
     {
-        // IF BOOK ISBN EXISTS AND IT IS NOT THE SAME BOOK RETURN FALSE
-        return Book::where('isbn' , $value)->where('id' , '!' ,$this->id )->first() ?  false
-                                                                                    :  true;
+        // FIND BOOK BY TITLE
+        $book_title  =  Book::where('isbn' , $value)->first();
+
+        // IF HAS SAME TITLE
+        if ($book_title) {
+            // FIND BOOK BY ID
+            $update_book = Book::find($this->id);
+            // IF THIS TITLE IS NOT FROM THIS BOOK
+            if($book_title != $update_book){
+                return false;
+            }
+        }
+        return true;
+
+
     }
 
     private function validateCreate($value)

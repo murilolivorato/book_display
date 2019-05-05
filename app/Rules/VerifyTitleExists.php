@@ -46,12 +46,22 @@ class VerifyTitleExists implements Rule
         return 'This Title  Already Exists , Chose Another One ';
     }
 
-
+    // IF BOOK TITLE EXISTS and IT IS NOT THE SAME BOOK RETURN FALSE
     private function validateUpdate($value)
     {
-        // IF BOOK TITLE EXISTS and IT IS NOT THE SAME BOOK RETURN FALSE
-        return Book::where('title' , $value)->where('id' , '!' ,$this->id )->first() ?  false
-            :  true;
+        // FIND BOOK BY TITLE
+        $book_title  =  Book::where('title' , $value)->first();
+
+        // IF HAS SAME TITLE
+        if ($book_title) {
+            // FIND BOOK BY ID
+            $update_book = Book::find($this->id);
+            // IF THIS TITLE IS NOT FROM THIS BOOK
+            if($book_title != $update_book){
+                return false;
+            }
+        }
+        return true;
     }
 
     private function validateCreate($value)
